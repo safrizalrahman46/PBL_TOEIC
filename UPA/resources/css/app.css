@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @source "../views";
-@import "./typography.css";
+/* @import "./typography.css"; */
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
