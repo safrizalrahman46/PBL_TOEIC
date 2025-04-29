@@ -64,6 +64,29 @@ onMounted(() => {
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+@keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%); /* Geser setengah dari total lebar (hanya set pertama) */
+    }
+  }
+
+  .animate-scroll {
+    display: flex;
+    animation: scroll-left 30s linear infinite;
+    width: max-content;
+  }
+
+  /* Untuk menghindari jeda saat hover */
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+
+
+
 </style>
 
 <template>
@@ -311,38 +334,214 @@ onMounted(() => {
 
 
 <!-- Testimonials Section -->
-<section class="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-100 via-white to-gray-100 p-8">
-  <div class="bg-white rounded-3xl shadow-lg flex overflow-hidden max-w-5xl w-full">
-    <!-- Left side: Image -->
-    <div class="w-1/2 bg-gray-100 p-4 flex items-center justify-center">
-      <img src="/public/images/avatar1.png" alt="Fitri Cahyaniati" class="rounded-2xl object-cover h-full w-full" />
-    </div>
+<section class="bg-[#f5f5f5] px-4 py-12 overflow-hidden">
+  <div class="relative w-full">
+    <div class="animate-scroll flex gap-6 whitespace-nowrap hover:[animation-play-state:paused]">
+      <!-- Original Cards -->
+      <div class="flex gap-6">
+        <!-- CARD 1 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar1.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 1</p>
+              <p class="text-xs drop-shadow">Role 1</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 1..."</p>
+          </div>
+        </div>
 
-    <!-- Right side: Text & Stars -->
-    <div class="w-1/2 p-8 flex flex-col justify-center">
-      <p class="text-2xl font-semibold text-gray-900 mb-6">
-        "The registration process is very easy and fast! I can focus on exam preparation without worry."
-      </p>
-      <div class="flex space-x-2">
-        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.562-.955L10 0l2.95 5.955 6.562.955-4.756 4.635 1.122 6.545z"/>
-        </svg>
-        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.562-.955L10 0l2.95 5.955 6.562.955-4.756 4.635 1.122 6.545z"/>
-        </svg>
-        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.562-.955L10 0l2.95 5.955 6.562.955-4.756 4.635 1.122 6.545z"/>
-        </svg>
-        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.562-.955L10 0l2.95 5.955 6.562.955-4.756 4.635 1.122 6.545z"/>
-        </svg>
-        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.562-.955L10 0l2.95 5.955 6.562.955-4.756 4.635 1.122 6.545z"/>
-        </svg>
+        <!-- CARD 2 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar2.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 2</p>
+              <p class="text-xs drop-shadow">Role 2</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 2..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar3.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 3</p>
+              <p class="text-xs drop-shadow">Role 3</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 3..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar4.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 4</p>
+              <p class="text-xs drop-shadow">Role 4</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 4..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar5.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 5</p>
+              <p class="text-xs drop-shadow">Role 5</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 5..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar6.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 6</p>
+              <p class="text-xs drop-shadow">Role 6</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 6..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 7 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar7.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 7</p>
+              <p class="text-xs drop-shadow">Role 7</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 7..."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Duplicate Cards (for seamless looping) -->
+      <div class="flex gap-6">
+        <!-- CARD 1 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar1.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 1</p>
+              <p class="text-xs drop-shadow">Role 1</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 1..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar2.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 2</p>
+              <p class="text-xs drop-shadow">Role 2</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 2..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar3.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 3</p>
+              <p class="text-xs drop-shadow">Role 3</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 3..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar4.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 4</p>
+              <p class="text-xs drop-shadow">Role 4</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 4..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar5.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 5</p>
+              <p class="text-xs drop-shadow">Role 5</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 5..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar6.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 6</p>
+              <p class="text-xs drop-shadow">Role 6</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 6..."</p>
+          </div>
+        </div>
+
+        <!-- CARD 7 -->
+        <div class="flex w-[320px] rounded-[20px] shadow-lg bg-white overflow-hidden">
+          <div class="relative w-[120px] flex-shrink-0">
+            <img src="/public/images/avatar7.png" class="w-full h-full object-cover rounded-[20px]" />
+            <div class="absolute bottom-2 left-2 text-white z-10">
+              <p class="text-sm font-bold drop-shadow">Nama 7</p>
+              <p class="text-xs drop-shadow">Role 7</p>
+            </div>
+          </div>
+          <div class="px-4 py-4">
+            <p class="text-sm text-black leading-snug">"Testimonial 7..."</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
 
 
 
