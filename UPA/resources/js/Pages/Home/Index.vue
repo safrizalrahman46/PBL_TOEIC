@@ -85,6 +85,14 @@ onMounted(() => {
     animation-play-state: paused;
   }
 
+  .transition {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .blob-shape {
+    clip-path: path('M0,100 Q50,0 100,100 T200,100');
+  }
+
 
 
 </style>
@@ -545,53 +553,158 @@ onMounted(() => {
 
 
 
-  <!-- Register Tutorial Section -->
-  <section class="bg-blue-600 py-16 text-center text-white">
-    <h2 class="text-3xl font-bold mb-4">Register Tutorial</h2>
-    <Button class="bg-white text-blue-600 hover:bg-gray-100">
-      Tutorial
-    </Button>
-  </section>
+<!-- Register Tutorial Section - Versi Desain Sesuai -->
+<section class="relative w-full h-[500px] flex items-end justify-end p-10 overflow-hidden">
+    <!-- Custom Gradient Background -->
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, #0118D8 0%, #60B5FF 100%);">
+      <img src="https://via.placeholder.com/1920x500/0118D8/FFFFFF" alt="Background" class="w-full h-full object-cover opacity-30">
+    </div>
 
-  <!-- Real Time Score Section -->
-  <section class="container mx-auto px-4 py-16 text-center">
-    <h2 class="text-3xl font-bold mb-6">Real Time Score</h2>
-    <Button class="bg-blue-600 hover:bg-blue-700 text-white mb-4">
-      Look
-    </Button>
-    <p class="text-gray-600">Look Your Result in here</p>
-  </section>
+    <!-- Card -->
+    <div class="relative z-10 w-[320px] h-[180px] rounded-[40px] overflow-hidden shadow-2xl">
+      <!-- Card Background -->
+      <div class="absolute inset-0" style="background-color: #3B82F6;">
+        <!-- Optional: Add pattern/texture here if needed -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/10"></div>
+
+      <!-- Content -->
+      <div class="relative h-full flex flex-col justify-between p-6">
+        <h2 class="text-2xl font-bold text-white">
+          Register<br>
+          <span class="text-white">Tutorial</span>
+        </h2>
+
+        <div class="flex items-center justify-between">
+          <button class="bg-white text-blue-600 font-medium px-5 py-2 rounded-full hover:bg-gray-100 transition">
+            Tutorial
+          </button>
+          <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+
+<!-- Real Time Score Section -->
+<section class="max-w-7xl mx-auto px-4 py-16">
+  <div class="bg-[#0023E5] text-white rounded-2xl p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+
+    <!-- Grid Skor - lebih rapat -->
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Baris 1 -->
+      <div class="bg-white text-[#0023E5] text-xl font-bold rounded-xl w-28 h-20 flex items-center justify-center">763</div>
+      <div class="bg-white text-[#0023E5] text-xl font-bold rounded-xl w-28 h-20 flex items-center justify-center">750</div>
+
+      <!-- Baris 2 -->
+      <div class="bg-white text-[#0023E5] text-xl font-bold rounded-xl w-28 h-20 flex items-center justify-center">668</div>
+      <div class="bg-white text-[#0023E5] text-xl font-bold rounded-xl w-28 h-20 flex items-center justify-center">667</div>
+
+      <!-- Baris 3 -->
+      <div class="bg-white text-[#0023E5] text-xl font-bold rounded-xl w-28 h-20 flex items-center justify-center">755</div>
+      <div class="bg-white text-[#0023E5] text-xl font-bold rounded-xl w-28 h-20 flex items-center justify-center">680</div>
+    </div>
+
+    <!-- Teks dan Tombol - lebih rapat -->
+    <div class="text-center md:text-left">
+      <h2 class="text-2xl font-bold leading-tight mb-2">
+        Real Time<br />
+        The highest Score in<br />
+        this month
+      </h2>
+      <p class="text-base mb-3">Look Your Result in here</p>
+      <button class="bg-white text-[#0023E5] font-semibold px-5 py-2 rounded-lg text-base">
+        Look
+      </button>
+    </div>
+
+  </div>
+</section>
 
   <!-- Footer -->
-  <footer class="bg-blue-900 text-white py-10">
-    <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8 text-center md:text-left">
-      <div>
-        <h4 class="font-bold mb-2">Company</h4>
-        <ul class="text-sm space-y-1">
-          <li>Blog</li>
-          <li>Careers</li>
-          <li>Pricing</li>
-        </ul>
+  <footer class="bg-[#0023E5] text-white py-12 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between gap-8">
+      <!-- Contact Info with Icons -->
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span>Tosic@course.com</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+          <span>+1 (201) 897-12413</span>
+        </div>
       </div>
-      <div>
-        <h4 class="font-bold mb-2">Resources</h4>
-        <ul class="text-sm space-y-1">
-          <li>Documentation</li>
-          <li>Paper</li>
-          <li>Press Conferences</li>
-        </ul>
+
+      <!-- Three Column Links -->
+      <div class="grid grid-cols-3 gap-8 flex-1 max-w-2xl">
+        <!-- Company Column -->
+        <div>
+          <h4 class="font-bold mb-3">Company</h4>
+          <ul class="space-y-2 text-sm">
+            <li>Blog</li>
+            <li>Careers</li>
+            <li>Pricing</li>
+          </ul>
+        </div>
+
+        <!-- Resources Column -->
+        <div>
+          <h4 class="font-bold mb-3">Resources</h4>
+          <ul class="space-y-2 text-sm">
+            <li>Documentation</li>
+            <li>Papers</li>
+            <li>Press Conferences</li>
+          </ul>
+        </div>
+
+        <!-- Legal Column -->
+        <div>
+          <h4 class="font-bold mb-3">Legal</h4>
+          <ul class="space-y-2 text-sm">
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+            <li>Cookies Policy</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h4 class="font-bold mb-2">Legal</h4>
-        <ul class="text-sm space-y-1">
-          <li>Terms of Service</li>
-          <li>Privacy Policy</li>
-          <li>Cookies Policy</li>
-        </ul>
+
+      <!-- User Info with Icons -->
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+          <span>Phone</span>
+        </div>
+        <p class="text-sm ml-7">0313_sec.sec.sec</p>
+
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span>Username</span>
+        </div>
+        <p class="text-sm ml-7">Tosi@gmail.com</p>
       </div>
     </div>
-    <div class="text-center text-xs mt-8">
-      © 2025 POLI TOEIC. All rights reserved.
+
+    <!-- Copyright -->
+    <div class="border-t border-white/20 mt-10 pt-6 text-center">
+      <p class="text-sm">© 2025 PBL TOEST.</p>
     </div>
-  </footer>
+  </div>
+</footer>
 </template>
