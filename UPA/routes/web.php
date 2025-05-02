@@ -5,6 +5,8 @@ use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FaqController;
+
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -24,5 +26,6 @@ Route::get('/dashboard', action: [DashboardController::class,'index']);
 // Route::get('/about', action: [AboutController::class,'index']);
 // routes/web.php
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/faq', action: [FaqController::class, 'index'])->name('faq');
 
 
