@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SignupController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -30,5 +31,6 @@ Route::get('/faq', action: [FaqController::class, 'index'])->name('faq');
 
 Route::get('/login', action: [LoginController::class, 'index'])->name('login');
 Route::get('/signup', action: [SignupController::class, 'index'])->name('signup');
+Route::get('/reset', action: [ResetPasswordController::class, 'index'])->name('reset');
 
 
