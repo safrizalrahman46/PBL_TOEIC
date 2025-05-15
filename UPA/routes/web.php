@@ -34,3 +34,5 @@ Route::get('/signup', action: [SignupController::class, 'index'])->name('signup'
 Route::get('/reset', action: [ResetPasswordController::class, 'index'])->name('reset');
 
 
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
