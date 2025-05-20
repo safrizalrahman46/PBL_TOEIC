@@ -1,28 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold">Dashboard</h4>
+    {{--  <div class="d-flex align-items-center gap-3">
+        <div class="input-group w-auto">
+            <input type="text" class="form-control" placeholder="Search">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+        </div>
+        <i class="bi bi-bell fs-5"></i>
+        <i class="bi bi-gear fs-5"></i>
+        <img src="https://via.placeholder.com/35" class="rounded-circle" alt="User">
+    </div>  --}}
+</div>
+
 <div class="row g-3 mb-4">
+    @php
+        $cards = [
+            ['title' => 'Table Order', 'amount' => '$1,300.000', 'icon' => 'credit-card'],
+            ['title' => 'Table Profit', 'amount' => '$1,400.000', 'icon' => 'bar-chart'],
+            ['title' => 'Table Sales', 'amount' => '$1,400.000', 'icon' => 'cart']
+        ];
+    @endphp
+    @foreach ($cards as $card)
     <div class="col-md-4">
-        <div class="card card-custom p-3">
-            <h6>Table Order</h6>
-            <h4>$1,300.000</h4>
+        <div class="card card-custom p-3 position-relative">
+            <i class="bi bi-{{ $card['icon'] }} fs-4 position-absolute top-0 end-0 m-3 text-primary"></i>
+            <h6>{{ $card['title'] }}</h6>
+            <h4>{{ $card['amount'] }}</h4>
             <p class="text-success small">+78% From Last Month</p>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card card-custom p-3">
-            <h6>Table Profit</h6>
-            <h4>$1,400.000</h4>
-            <p class="text-success small">+78% From Last Month</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card card-custom p-3">
-            <h6>Table Sales</h6>
-            <h4>$1,400.000</h4>
-            <p class="text-success small">+78% From Last Month</p>
-        </div>
-    </div>
+    @endforeach
 </div>
 
 <div class="card card-custom p-3 mb-4">
@@ -33,7 +42,7 @@
             <option>Weekly</option>
         </select>
     </div>
-    <canvas id="overviewChart" height="100"></canvas>
+    <canvas id="overviewChart" height="120"></canvas>
 </div>
 
 <div class="row g-3">
@@ -77,21 +86,18 @@
         <div class="card card-custom p-3 mb-3">
             <h6 class="fw-bold">Top Services</h6>
             <ul class="list-group list-group-flush">
+                @foreach ([
+                    ['Cleaning AC', '+15.2%'],
+                    ['Services AC', '+15.2%'],
+                    ['Clean Room', '+15.2%'],
+                    ['Services TV', '+15.2%'],
+                    ['Services Radio', '-28.2%']
+                ] as $service)
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Cleaning AC</span> <span class="text-success">+15.2%</span>
+                    <span>{{ $service[0] }}</span>
+                    <span class="text-{{ str_contains($service[1], '-') ? 'danger' : 'success' }}">{{ $service[1] }}</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Services AC</span> <span class="text-success">+15.2%</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Clean Room</span> <span class="text-success">+15.2%</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Services TV</span> <span class="text-success">+15.2%</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Services Radio</span> <span class="text-danger">-28.2%</span>
-                </li>
+                @endforeach
             </ul>
         </div>
 
@@ -126,7 +132,5 @@
             }
         }
     });
-
-    // Gauge chart is custom. For production use a library like Chart.js plugins or ApexCharts
 </script>
 @endsection

@@ -38,3 +38,8 @@ Route::get('/reset', action: [ResetPasswordController::class, 'index'])->name('r
 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
+Route::get('/profile', function () {
+    return view('profile');
+});
+
+
