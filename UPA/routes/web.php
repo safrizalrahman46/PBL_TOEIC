@@ -10,6 +10,8 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SignupController;
+use App\Http\Controllers\PaidToeicController;
+
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -42,4 +44,15 @@ Route::get('/profile', function () {
     return view('profile');
 });
 
+
+Route::get('/free-toeic/register', function () {
+    return view('FreeRegister');
+})->name('free-toeic.form');
+
+Route::post('/free-toeic/register', [App\Http\Controllers\FreeToeicController::class, 'register'])
+    ->name('free-toeic.register');
+
+
+    Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
+Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
 
