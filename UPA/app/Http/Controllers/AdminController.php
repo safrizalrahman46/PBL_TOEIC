@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // return inertia::render('Dashboard/Index');
-            return view('dashboard.index');
+         return view('admin.index');
     }
 
     /**
