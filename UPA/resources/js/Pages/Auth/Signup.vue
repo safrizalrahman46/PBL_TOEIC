@@ -55,18 +55,7 @@ import { ref } from 'vue'
           </div>
         </form>
 
-        <!-- OR Divider -->
-        <div class="flex items-center gap-4 my-6">
-          <hr class="flex-grow border-t border-gray-300" />
-          <span class="text-sm text-gray-500">Or</span>
-          <hr class="flex-grow border-t border-gray-300" />
-        </div>
 
-        <!-- Google Sign Up -->
-        <button class="w-full flex items-center justify-center gap-3 border rounded-full py-2 shadow-sm hover:shadow-md transition">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5" />
-          <span class="text-sm text-gray-700">Sign Up With Google</span>
-        </button>
       </div>
     </div>
   </div>

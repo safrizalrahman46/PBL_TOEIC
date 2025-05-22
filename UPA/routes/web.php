@@ -26,7 +26,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class,'index'])->name('home');
+
+// Route::get('/', [HomeController::class,'index']);
 Route::get('/dashboard', action: [DashboardController::class,'index']);
 // Route::get('/about', action: [AboutController::class,'index']);
 // routes/web.php

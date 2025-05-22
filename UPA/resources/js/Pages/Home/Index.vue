@@ -103,23 +103,32 @@ onMounted(() => {
 
   <!-- Header -->
   <header class="bg-white shadow-sm">
-    <div class="container mx-auto flex items-center justify-between py-4 px-4">
-      <div class="text-2xl font-bold text-blue-900">UPA</div>
-      <nav class="hidden md:flex gap-8 text-blue-900 font-semibold">
-        <a href="#" class="hover:text-blue-600">Home</a>
-        <a href="#" class="hover:text-blue-600">About</a>
-        <a href="#" class="hover:text-blue-600">Faq</a>
-      </nav>
-      <div class="flex gap-2">
-        <Button variant="outline" class="text-blue-900 border-blue-900 hover:bg-blue-50">
-          Sign Up
-        </Button>
-        <Button class="bg-blue-700 hover:bg-blue-800 text-white">
-          Login
-        </Button>
-      </div>
+  <div class="container mx-auto flex items-center justify-between py-4 px-4">
+    <div class="text-2xl font-bold text-blue-900">
+      <a href="/home">UPA</a>
     </div>
-  </header>
+
+    <nav class="hidden md:flex gap-8 text-blue-900 font-semibold">
+      <a href="{{ route('home') }}" class="hover:text-blue-600">Home</a>
+      <a href="{{ route('about') }}" class="hover:text-blue-600">About</a>
+      <a href="{{ route('faq') }}" class="hover:text-blue-600">FAQ</a>
+    </nav>
+
+    <div class="flex gap-2">
+      <a href="{{ route('signup') }}">
+        <button class="text-blue-900 border border-blue-900 px-4 py-2 rounded hover:bg-blue-50">
+          Sign Up
+        </button>
+      </a>
+      <a href="/login">
+        <button class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded">
+          Login
+        </button>
+      </a>
+    </div>
+  </div>
+</header>
+
 
   <!-- Hero Section -->
   <section class="bg-white min-h-screen flex items-center">
