@@ -1,6 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
+import axios from 'axios'
+
+
+// Ambil CSRF token dari meta tag
+const token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 
 const props = defineProps({
     studyPrograms: Array,
@@ -204,7 +215,7 @@ const submit = () => {
                             <label class="block text-gray-400 text-sm mb-1">Campus</label>
                             <select v-model="form.campus"
                                 class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none" required>
-                                <option value="Main">Main Campus</option>
+                                <option value="Main">Main</option>
                                 <option value="PSDKU Kediri">PSDKU Kediri</option>
                                 <option value="PSDKU Lumajang">PSDKU Lumajang</option>
                                 <option value="PSDKU Pamekasan">PSDKU Pamekasan</option>

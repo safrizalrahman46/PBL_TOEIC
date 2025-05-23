@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\m_user;
+use App\Models\StudyProgram;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use App\Models\StudyProgram;
-use App\Models\Major;
-use Inertia\Inertia;
-
 
 class SignupController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Auth/Signup', [
+        return view('auth.signup', [
             'studyPrograms' => StudyProgram::all(),
-            'majors' => Major::all()
+            'majors' => Major::all(),
         ]);
     }
 
@@ -38,9 +36,8 @@ class SignupController extends Controller
             'campus' => 'required|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
         ]);
 
-        
-        try {
-            $user = User::create([
+
+            m_user::create([
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -57,13 +54,10 @@ class SignupController extends Controller
                 'campus' => $request->campus,
                 'has_registered_free_toeic' => false,
             ]);
-        } catch (\Exception $e) {
-            dd('GAGAL INSERT:', $e->getMessage());
+
+            // Optionally log the user in
+            // auth()->login($user);
+
+            // return redirect()->route('dashboard')->with('success', 'Registration successful!');
         }
-
-        // You might want to log the user in here
-        // auth()->login($user);
-
-        return redirect()->route('dashboard')->with('success', 'Registration successful!');
-    }
 }
