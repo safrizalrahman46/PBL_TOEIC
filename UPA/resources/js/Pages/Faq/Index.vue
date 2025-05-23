@@ -3,12 +3,13 @@ import { ref } from 'vue'
 import { ChevronDown } from 'lucide-vue-next'
 
 const faqs = ref([
-  { question: 'Apa itu TOEIC?', answer: 'TOEIC adalah tes kemampuan berbahasa Inggris untuk komunikasi internasional.', open: false },
-  { question: 'Bagaimana cara mendaftar?', answer: 'Anda bisa mendaftar melalui halaman pendaftaran di situs kami.', open: false },
-  { question: 'Apakah ada batasan usia?', answer: 'TOEIC dapat diikuti oleh siapa saja tanpa batasan usia.', open: false },
-  { question: 'Berapa biaya tes?', answer: 'Biaya tes bervariasi tergantung lokasi dan waktu pelaksanaan.', open: false },
-  { question: 'Berapa lama hasil keluar?', answer: 'Hasil biasanya tersedia dalam 5–10 hari kerja.', open: false },
+  { question: 'What is TOEIC?', answer: 'TOEIC is a test that measures English language proficiency for international communication.', open: false },
+  { question: 'How do I register?', answer: 'You can register through the registration page on our website.', open: false },
+  { question: 'Is there an age limit?', answer: 'TOEIC can be taken by anyone without any age restriction.', open: false },
+  { question: 'How much does the test cost?', answer: 'The test fee varies depending on the location and schedule.', open: false },
+  { question: 'How long does it take to get the results?', answer: 'Results are usually available within 5–10 business days.', open: false },
 ])
+
 
 function toggle(index) {
   faqs.value[index].open = !faqs.value[index].open
@@ -18,20 +19,32 @@ function toggle(index) {
 <template>
   <div class="min-h-screen flex flex-col justify-between">
     <!-- Header -->
-    <header class="bg-white py-6 shadow-sm">
-      <div class="container mx-auto px-4 flex justify-between items-center">
-        <div class="text-xl font-bold text-blue-900">UPA</div>
-        <nav class="hidden md:flex gap-8 font-semibold text-blue-900">
-          <a href="/" class="hover:text-blue-700">Home</a>
-          <a href="/about" class="hover:text-blue-700">About</a>
-          <a href="/faq" class="hover:text-blue-700">Faq</a>
-        </nav>
-        <div class="flex gap-2">
-          <button class="border border-blue-700 text-blue-700 px-4 py-2 rounded hover:bg-blue-50">Sign Up</button>
-          <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800">Login</button>
-        </div>
-      </div>
-    </header>
+  <header class="bg-white shadow-sm">
+  <div class="container mx-auto flex items-center justify-between py-4 px-4">
+    <div class="text-2xl font-bold text-blue-900">
+      <a href="/">UPA</a>
+    </div>
+
+    <nav class="hidden md:flex gap-8 text-blue-900 font-semibold">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <a href="/about" class="hover:text-blue-600">About</a>
+      <a href="/faq" class="hover:text-blue-600">FAQ</a>
+    </nav>
+
+    <div class="flex gap-2">
+      <a href="/signup">
+        <button class="text-blue-900 border border-blue-900 px-4 py-2 rounded hover:bg-blue-50">
+          Sign Up
+        </button>
+      </a>
+      <a href="/login">
+        <button class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded">
+          Login
+        </button>
+      </a>
+    </div>
+  </div>
+</header>
 
     <!-- FAQ Section -->
     <main class="flex-1 py-16 bg-white px-4">

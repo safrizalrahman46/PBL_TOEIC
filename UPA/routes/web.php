@@ -36,7 +36,12 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/faq', action: [FaqController::class, 'index'])->name('faq');
 
 Route::get('/login', action: [LoginController::class, 'index'])->name('login');
-Route::get('/signup', action: [SignupController::class, 'index'])->name('signup');
+// Route::get('/signup', action: [SignupController::class, 'index'])->name('signup');
+
+Route::get('/signup', [SignupController::class, 'index'])->name('signup');
+Route::post('/signup', [SignupController::class, 'store']);
+
+
 Route::get('/reset', action: [ResetPasswordController::class, 'index'])->name('reset');
 
 

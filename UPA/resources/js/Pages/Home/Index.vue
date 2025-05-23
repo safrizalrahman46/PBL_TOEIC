@@ -105,17 +105,17 @@ onMounted(() => {
   <header class="bg-white shadow-sm">
   <div class="container mx-auto flex items-center justify-between py-4 px-4">
     <div class="text-2xl font-bold text-blue-900">
-      <a href="/home">UPA</a>
+      <a href="/">UPA</a>
     </div>
 
     <nav class="hidden md:flex gap-8 text-blue-900 font-semibold">
-      <a href="{{ route('home') }}" class="hover:text-blue-600">Home</a>
-      <a href="{{ route('about') }}" class="hover:text-blue-600">About</a>
-      <a href="{{ route('faq') }}" class="hover:text-blue-600">FAQ</a>
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <a href="/about" class="hover:text-blue-600">About</a>
+      <a href="/faq" class="hover:text-blue-600">FAQ</a>
     </nav>
 
     <div class="flex gap-2">
-      <a href="{{ route('signup') }}">
+      <a href="/signup">
         <button class="text-blue-900 border border-blue-900 px-4 py-2 rounded hover:bg-blue-50">
           Sign Up
         </button>
