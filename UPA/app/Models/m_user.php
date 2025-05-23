@@ -39,4 +39,15 @@ class m_user extends Authenticatable
         'email_verified_at' => 'datetime',
         'has_registered_free_toeic' => 'boolean',
     ];
+
+    // app/Models/m_user.php
+    public function studyProgram()
+    {
+        return $this->belongsTo(StudyProgram::class, 'study_program_id');
+    }
+
+    public function major()
+    {
+        return $this->belongsTo(Major::class, 'major_id');
+    }
 }
