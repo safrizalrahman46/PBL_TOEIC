@@ -145,6 +145,20 @@
                         </div>
                     </div>
 
+                    <div>
+    <label class="block text-gray-400 text-sm mb-1">Role</label>
+    <select name="role_name" class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none" required>
+        <option disabled selected>Select Role</option>
+        <option value="student" {{ old('role_name') == 'student' ? 'selected' : '' }}>Student</option>
+        <option value="admin" {{ old('role_name') == 'admin' ? 'selected' : '' }}>Admin</option>
+        <option value="educational_staff" {{ old('role_name') == 'educational_staff' ? 'selected' : '' }}>Educational Staff</option>
+    </select>
+    @error('role_name')
+        <p class="text-red-500 text-sm">{{ $message }}</p>
+    @enderror
+</div>
+
+
                     <!-- Submit -->
                     <div class="pt-6">
                         <button type="submit" class="w-full bg-gray-300 text-black py-3 rounded-md">

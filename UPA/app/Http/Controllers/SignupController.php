@@ -26,6 +26,7 @@ class SignupController extends Controller
             'email' => 'required|string|email|max:100|unique:user,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'name' => 'required|string|max:100',
+            'role_name' => 'required|in:student,admin,educational_staff',
             'nim' => 'required|string|max:20|unique:user,nim',
             'nik' => 'required|string|max:20|unique:user,nik',
             'phone' => 'required|string|max:15',
@@ -37,27 +38,32 @@ class SignupController extends Controller
         ]);
 
 
-            m_user::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role_name' => 'student',
-                'role_description' => 'Regular student user',
-                'nim' => $request->nim,
-                'name' => $request->name,
-                'nik' => $request->nik,
-                'phone' => $request->phone,
-                'origin_address' => $request->origin_address,
-                'current_address' => $request->current_address,
-                'study_program_id' => $request->study_program_id,
-                'major_id' => $request->major_id,
-                'campus' => $request->campus,
-                'has_registered_free_toeic' => false,
-            ]);
+        m_user::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_name' => $request->role_name,
+            'role_description' => match ($request->role_name) {
+                'student' => 'Regular student user',
+                'admin' => 'System administrator',
+                'educational_staff' => 'Educational staff member',
+            },
+            'nim' => $request->nim,
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'phone' => $request->phone,
+            'origin_address' => $request->origin_address,
+            'current_address' => $request->current_address,
+            'study_program_id' => $request->study_program_id,
+            'major_id' => $request->major_id,
+            'campus' => $request->campus,
+            'has_registered_free_toeic' => false,
+        ]);
 
-            // Optionally log the user in
-            // auth()->login($user);
+        // Optionally log the user in
+        // auth()->login($user);
 
-            // return redirect()->route('dashboard')->with('success', 'Registration successful!');
-        }
+        // return redirect()->route('dashboard')->with('success', 'Registration successful!');
+        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
+    }
 }
