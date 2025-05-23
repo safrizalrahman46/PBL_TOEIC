@@ -69,7 +69,7 @@ const submit = () => {
     <div class="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-white">
         <!-- Left Image Section -->
         <div class="flex items-center justify-center bg-[#1E4CFF] p-6">
-            <img src="../public/images/Login.png" alt="Signup Visual" class="rounded-xl max-h-[90%] object-contain" />
+            <img src="/public/images/login.png" alt="Signup Visual" class="rounded-xl max-h-[90%] object-contain" />
         </div>
 
         <!-- Right Form Section -->
