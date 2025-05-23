@@ -28,3 +28,7 @@ Route::post('/free-toeic/register', [FreeToeicController::class, 'register'])->n
 
 Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
 Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
+
+Route::get('forgot-password', function () {
+    return view('auth.forgot-password'); // Buat file view-nya kalau belum ada
+})->middleware('guest')->name('password.request');

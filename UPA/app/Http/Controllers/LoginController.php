@@ -12,7 +12,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return inertia::render('Auth/Login');
+       return view('auth.login', [
+        ]);
     }
 
     /**
