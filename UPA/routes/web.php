@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
@@ -16,7 +17,7 @@ Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class,'index']);
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::get('/signup', [SignupController::class, 'index'])->name('signup.index');
 Route::post('/signup', [SignupController::class, 'store'])->name('signup.store');
 Route::get('/reset', [ResetPasswordController::class, 'index'])->name('reset');
