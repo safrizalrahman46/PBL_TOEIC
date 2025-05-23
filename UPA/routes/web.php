@@ -18,10 +18,14 @@ Route::get('/dashboard', [DashboardController::class,'index']);
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/login', [AuthController::class, 'postlogin'])->name('login.post');
+
 Route::get('/signup', [SignupController::class, 'index'])->name('signup.index');
 Route::post('/signup', [SignupController::class, 'store'])->name('signup.store');
 Route::get('/reset', [ResetPasswordController::class, 'index'])->name('reset');
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/profile', fn () => view('profile'));
 
 Route::get('/free-toeic/register', fn () => view('FreeRegister'))->name('free-toeic.form');

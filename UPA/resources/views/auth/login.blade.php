@@ -26,7 +26,10 @@
                 <h2 class="text-blue-700 font-bold text-lg">LOGOS</h2>
                 <h1 class="text-xl font-semibold mt-2">Welcome Back!</h1>
 
-                <form action="{{ route('login') }}" method="POST" class="mt-6 space-y-4">
+                {{--  <form action="{{ route('login') }}" method="POST" class="mt-6 space-y-4">
+                      --}}
+                      <form action="{{ route('login.post') }}" method="POST" class="mt-6 space-y-4">
+
                     @csrf
 
                     <div>

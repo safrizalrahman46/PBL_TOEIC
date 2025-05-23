@@ -17,17 +17,20 @@ class AuthController extends Controller
         ]);
     }
 
-    public function postlogin(Request $request)
+   public function postlogin(Request $request)
 {
     if ($request->ajax() || $request->wantsJson()) {
-        $credentials = $request->only('username', 'password');
+        // $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
             return response()->json([
                 'status' => true,
                 'message' => 'Login Berhasil',
-                'redirect' => url('/')
+                'redirect' => url('/dashboard') // ⬅️ Redirect ke dashboard
             ]);
         }
+
         return response()->json([
             'status' => false,
             'message' => 'Login Gagal'
@@ -35,10 +38,15 @@ class AuthController extends Controller
     }
 
     // fallback kalau bukan AJAX
+    if (Auth::attempt($request->only('email', 'password'))) {
+        return redirect('/dashboard'); // ⬅️ Redirect langsung kalau bukan AJAX
+    }
+
     return redirect('login')->withErrors([
-        'username' => 'Login gagal',
+        'email' => 'Login gagal',
     ]);
 }
+
 
 
     /**
