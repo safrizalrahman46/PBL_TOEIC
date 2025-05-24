@@ -171,7 +171,7 @@
     </div>
 
     <!-- JavaScript Toggle for Role -->
-    <script>
+    {{--  <script>
         const roleSelect = document.getElementById('roleSelect');
         const profileSection = document.getElementById('profileSection');
 
@@ -196,7 +196,56 @@
 
         roleSelect.addEventListener('change', toggleProfileInputs);
         window.addEventListener('DOMContentLoaded', toggleProfileInputs);
-    </script>
+    </script>  --}}
+
+    <script>
+    const roleSelect = document.getElementById('roleSelect');
+    const profileSection = document.getElementById('profileSection');
+
+    function toggleProfileInputs() {
+        const selectedRole = roleSelect.value;
+        const allInputs = profileSection.querySelectorAll('input, select, textarea');
+
+        // Aktifkan semua field terlebih dahulu
+        allInputs.forEach(el => {
+            el.disabled = false;
+            el.classList.remove('cursor-not-allowed', 'opacity-50');
+        });
+
+        profileSection.style.opacity = '1';
+
+        if (selectedRole === 'admin') {
+            // Nonaktifkan semua kolom profil
+            profileSection.style.opacity = '0.4';
+            allInputs.forEach(el => {
+                el.disabled = true;
+                el.classList.add('cursor-not-allowed');
+            });
+        }
+
+        if (selectedRole === 'educational_staff') {
+            // Nonaktifkan hanya kolom: NIM, Study Program, Major, Campus
+            const toDisable = [
+                'input[name="nim"]',
+                'select[name="study_program_id"]',
+                'select[name="major_id"]',
+                'select[name="campus"]'
+            ];
+
+            toDisable.forEach(selector => {
+                const el = document.querySelector(selector);
+                if (el) {
+                    el.disabled = true;
+                    el.classList.add('cursor-not-allowed', 'opacity-50');
+                }
+            });
+        }
+    }
+
+    roleSelect.addEventListener('change', toggleProfileInputs);
+    window.addEventListener('DOMContentLoaded', toggleProfileInputs);
+</script>
+
 
 </body>
 

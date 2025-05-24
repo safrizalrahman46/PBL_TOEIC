@@ -21,25 +21,39 @@ class SignupController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(array_merge([
+        $baseRules = [
             'username' => 'required|string|max:50|unique:user,username',
             'email' => 'required|string|email|max:100|unique:user,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role_name' => 'required|in:student,admin,educational_staff',
-        ], $request->role_name !== 'admin' ? [
-            'name' => 'required|string|max:100',
-            'nim' => 'required|string|max:20|unique:user,nim',
-            'nik' => 'required|string|max:20|unique:user,nik',
-            'phone' => 'required|string|max:15',
-            'origin_address' => 'required|string',
-            'current_address' => 'required|string',
-            'study_program_id' => 'required|integer|exists:study_programs,id',
-            'major_id' => 'required|integer|exists:majors,id',
-            'campus' => 'required|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
-        ] : []));
+        ];
 
+        $additionalRules = [];
 
+        if ($request->role_name === 'student') {
+            $additionalRules = [
+                'name' => 'required|string|max:100',
+                'nim' => 'required|string|max:20|unique:user,nim',
+                'nik' => 'required|string|max:20|unique:user,nik',
+                'phone' => 'required|string|max:15',
+                'origin_address' => 'required|string',
+                'current_address' => 'required|string',
+                'study_program_id' => 'required|integer|exists:study_programs,id',
+                'major_id' => 'required|integer|exists:majors,id',
+                'campus' => 'required|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
+            ];
+        } elseif ($request->role_name === 'educational_staff') {
+            $additionalRules = [
+                'name' => 'required|string|max:100',
+                'nik' => 'required|string|max:20|unique:user,nik',
+                'phone' => 'required|string|max:15',
+                'origin_address' => 'required|string',
+                'current_address' => 'required|string',
+            ];
+            // Kolom nim, study_program_id, major_id, campus tidak divalidasi karena dinonaktifkan
+        }
 
+        $request->validate(array_merge($baseRules, $additionalRules));
 
         m_user::create([
             'username' => $request->username,
@@ -57,17 +71,12 @@ class SignupController extends Controller
             'phone' => $request->phone ?? '-',
             'origin_address' => $request->origin_address ?? '-',
             'current_address' => $request->current_address ?? '-',
-            'study_program_id' => $request->study_program_id ?? 1, // fallback ID 1 jika kosong
+            'study_program_id' => $request->study_program_id ?? 1,
             'major_id' => $request->major_id ?? 1,
             'campus' => $request->campus ?? 'Main',
             'has_registered_free_toeic' => false,
         ]);
 
-
-        // Optionally log the user in
-        // auth()->login($user);
-
-        // return redirect()->route('dashboard')->with('success', 'Registration successful!');
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 }
