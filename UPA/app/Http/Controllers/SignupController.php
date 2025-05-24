@@ -21,12 +21,13 @@ class SignupController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $request->validate(array_merge([
             'username' => 'required|string|max:50|unique:user,username',
             'email' => 'required|string|email|max:100|unique:user,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'name' => 'required|string|max:100',
             'role_name' => 'required|in:student,admin,educational_staff',
+        ], $request->role_name !== 'admin' ? [
+            'name' => 'required|string|max:100',
             'nim' => 'required|string|max:20|unique:user,nim',
             'nik' => 'required|string|max:20|unique:user,nik',
             'phone' => 'required|string|max:15',
@@ -35,7 +36,9 @@ class SignupController extends Controller
             'study_program_id' => 'required|integer|exists:study_programs,id',
             'major_id' => 'required|integer|exists:majors,id',
             'campus' => 'required|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
-        ]);
+        ] : []));
+
+
 
 
         m_user::create([
@@ -48,17 +51,18 @@ class SignupController extends Controller
                 'admin' => 'System administrator',
                 'educational_staff' => 'Educational staff member',
             },
-            'nim' => $request->nim,
-            'name' => $request->name,
-            'nik' => $request->nik,
-            'phone' => $request->phone,
-            'origin_address' => $request->origin_address,
-            'current_address' => $request->current_address,
-            'study_program_id' => $request->study_program_id,
-            'major_id' => $request->major_id,
-            'campus' => $request->campus,
+            'name' => $request->name ?? '-',
+            'nim' => $request->nim ?? '-',
+            'nik' => $request->nik ?? '-',
+            'phone' => $request->phone ?? '-',
+            'origin_address' => $request->origin_address ?? '-',
+            'current_address' => $request->current_address ?? '-',
+            'study_program_id' => $request->study_program_id ?? 1, // fallback ID 1 jika kosong
+            'major_id' => $request->major_id ?? 1,
+            'campus' => $request->campus ?? 'Main',
             'has_registered_free_toeic' => false,
         ]);
+
 
         // Optionally log the user in
         // auth()->login($user);
