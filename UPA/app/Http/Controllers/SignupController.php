@@ -71,9 +71,18 @@ class SignupController extends Controller
             'phone' => $request->phone ?? '-',
             'origin_address' => $request->origin_address ?? '-',
             'current_address' => $request->current_address ?? '-',
-            'study_program_id' => $request->study_program_id ?? 1,
-            'major_id' => $request->major_id ?? 1,
-            'campus' => $request->campus ?? 'Main',
+
+
+            // 'study_program_id' => $request->study_program_id ?? 1,
+            // 'major_id' => $request->major_id ?? 1,
+            // 'campus' => $request->campus ?? 'Main',
+
+            //jADI YANG OTOMATIS KE ISI HANYA STUDENT SAJA
+            'study_program_id' => $request->role_name === 'student' ? $request->study_program_id : null,
+            'major_id' => $request->role_name === 'student' ? $request->major_id : null,
+            'campus' => $request->role_name === 'student' ? $request->campus : null,
+
+
             'has_registered_free_toeic' => false,
         ]);
 
