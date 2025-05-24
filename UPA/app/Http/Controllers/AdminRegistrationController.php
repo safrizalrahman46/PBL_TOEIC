@@ -10,25 +10,18 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminRegistrationController extends Controller
 {
-
-
-    //   public function index()
-    // {
-    //     $students = m_user::where('role_name', 'student')->get();
-
-    //     return view('admin.student-register.index', compact('students'));
-    // }
-
     public function index()
     {
-        $students = m_user::with(['studyProgram:id,name', 'major:id,name']) // relasi hanya ambil id & name
+        $students = m_user::with(['studyProgram:id,name', 'major:id,name'])
             ->where('role_name', 'student')
-            ->select('id', 'username', 'name', 'email', 'nim', 'study_program_id', 'major_id', 'campus', 'role_name')
+            ->select(
+                'id', 'username', 'name', 'email', 'nim', 'study_program_id', 'major_id',
+                'campus', 'role_name', 'status', 'rejection_reason'
+            )
             ->get();
 
         return view('admin.student-register.index', compact('students'));
     }
-
 
     public function create()
     {
@@ -70,9 +63,34 @@ class AdminRegistrationController extends Controller
             'study_program_id' => $request->study_program_id,
             'major_id' => $request->major_id,
             'campus' => $request->campus,
-            'has_registered_free_toeic' => false
+            'has_registered_free_toeic' => false,
+            'status' => 'pending',
         ]);
 
         return redirect()->back()->with('success', 'Mahasiswa berhasil didaftarkan.');
+    }
+
+    public function approve($id)
+    {
+        $student = m_user::findOrFail($id);
+        $student->update([
+            'status' => 'approved',
+            'rejection_reason' => null,
+        ]);
+
+        return back()->with('success', 'Student approved.');
+    }
+
+    public function reject(Request $request, $id)
+    {
+        $request->validate(['rejection_reason' => 'required|string']);
+
+        $student = m_user::findOrFail($id);
+        $student->update([
+            'status' => 'rejected',
+            'rejection_reason' => $request->rejection_reason,
+        ]);
+
+        return back()->with('error', 'Student rejected.');
     }
 }

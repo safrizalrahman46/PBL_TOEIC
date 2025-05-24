@@ -14,7 +14,25 @@ class User extends Authenticatable
 
     protected $table = 'user'; // <- sudah benar
 
-   protected $fillable = [
+//    protected $fillable = [
+//     'username',
+//     'email',
+//     'password',
+//     'role_name',
+//     'role_description',
+//     'nim',
+//     'name',
+//     'nik',
+//     'phone',
+//     'origin_address',
+//     'current_address',
+//     'study_program_id',
+//     'major_id',
+//     'campus',
+//     'has_registered_free_toeic',
+// ];
+
+protected $fillable = [
     'username',
     'email',
     'password',
@@ -30,7 +48,10 @@ class User extends Authenticatable
     'major_id',
     'campus',
     'has_registered_free_toeic',
+    'status',
+    'rejection_reason',
 ];
+
 
 
 

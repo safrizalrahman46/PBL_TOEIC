@@ -10,7 +10,7 @@ class m_user extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'user'; // gunakan nama tabel yang sesuai
+    protected $table = 'user';
 
     protected $fillable = [
         'username',
@@ -28,6 +28,8 @@ class m_user extends Authenticatable
         'major_id',
         'campus',
         'has_registered_free_toeic',
+        'status',
+        'rejection_reason',
     ];
 
     protected $hidden = [
@@ -36,11 +38,9 @@ class m_user extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'has_registered_free_toeic' => 'boolean',
     ];
 
-    // app/Models/m_user.php
     public function studyProgram()
     {
         return $this->belongsTo(StudyProgram::class, 'study_program_id');
@@ -50,6 +50,7 @@ class m_user extends Authenticatable
     {
         return $this->belongsTo(Major::class, 'major_id');
     }
+
     public function toeicScores()
     {
         return $this->hasMany(ToeicScore::class, 'user_id');
