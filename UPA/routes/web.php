@@ -15,6 +15,9 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\PaidToeicController;
 use App\Http\Controllers\FreeToeicController;
 use App\Http\Controllers\AdminRegistrationController;
+use App\Http\Controllers\MajorController;
+use App\Http\Controllers\StudyProgramController;
+use App\Http\Controllers\ToeicScoreController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -69,3 +72,9 @@ Route::get('/admin/student-register/create', [AdminRegistrationController::class
 
 // Simpan mahasiswa baru
 Route::post('/admin/student-register', [AdminRegistrationController::class, 'store'])->name('admin.student.register.store');
+
+Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic.scores.index');
+
+Route::resource('/majors', MajorController::class);
+
+Route::resource('/study-programs', StudyProgramController::class);

@@ -50,4 +50,8 @@ class m_user extends Authenticatable
     {
         return $this->belongsTo(Major::class, 'major_id');
     }
+    public function toeicScores()
+    {
+        return $this->hasMany(ToeicScore::class, 'user_id');
+    }
 }

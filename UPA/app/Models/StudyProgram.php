@@ -15,8 +15,12 @@ class StudyProgram extends Model
         // add other fields as needed
     ];
 
-    public function users()
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class);
+    // }
+       public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(m_user::class, 'study_program_id');
     }
 }
