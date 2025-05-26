@@ -134,7 +134,7 @@ function toggle(index) {
           </div>
         </div>
         <div class="border-t border-white/20 mt-10 pt-6 text-center">
-          <p class="text-sm">© 2025 PBL TOEIC.</p>
+          <p class="text-sm">© 2025 TOEIC.</p>
         </div>
       </div>
     </footer>
