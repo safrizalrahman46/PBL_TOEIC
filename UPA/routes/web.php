@@ -15,9 +15,12 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\PaidToeicController;
 use App\Http\Controllers\FreeToeicController;
 use App\Http\Controllers\AdminRegistrationController;
+use App\Http\Controllers\EducationalStaffController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\ToeicScoreController;
+// use App\Http\Controllers\EducationalStaffController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -99,3 +102,11 @@ Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic
 Route::resource('/majors', MajorController::class);
 
 Route::resource('/study-programs', StudyProgramController::class);
+
+    Route::get('/educational-staff', [EducationalStaffController::class, 'index'])->name('educational-staff.index');
+    Route::get('/educational-staff/create', [EducationalStaffController::class, 'create'])->name('educational-staff.create');
+    Route::post('/educational-staff', [EducationalStaffController::class, 'store'])->name('educational-staff.store');
+    Route::get('/educational-staff/{id}', [EducationalStaffController::class, 'show'])->name('educational-staff.show');
+    Route::get('/educational-staff/{id}/edit', [EducationalStaffController::class, 'edit'])->name('educational-staff.edit');
+    Route::put('/educational-staff/{id}', [EducationalStaffController::class, 'update'])->name('educational-staff.update');
+    Route::delete('/educational-staff/{id}', [EducationalStaffController::class, 'destroy'])->name('educational-staff.destroy');
