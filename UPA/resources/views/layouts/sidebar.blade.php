@@ -55,8 +55,8 @@
     <!-- Users -->
     <small class="text-uppercase text-muted fw-bold mb-2 mt-3">Users</small>
     <ul class="nav nav-pills flex-column mb-3">
-        <li class="nav-item"><a href="/users" class="nav-link text-dark"><i class="bi bi-person me-2"></i> User
-                Management</a></li>
+        <li class="nav-item"><a href="/profile" class="nav-link text-dark"><i class="bi bi-person me-2"></i> User
+                 Profile</a></li>
     </ul>
 
     <!-- Footer -->
