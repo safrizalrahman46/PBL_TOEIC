@@ -26,7 +26,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/announcements" class="nav-link text-dark">
+            <a href="/announcement" class="nav-link text-dark">
                 <i class="bi bi-megaphone me-2"></i> Announcements
             </a>
         </li>

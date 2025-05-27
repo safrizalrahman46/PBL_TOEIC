@@ -61,7 +61,28 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 
 // web.php
-Route::resource('/announcements', AnnouncementController::class);
+// Route::resource('/announcements', AnnouncementController::class);
+// // Route::resource('announcements', AnnouncementController::class);
+// Route::get('/fetch-announcements', [AnnouncementController::class, 'fetch'])->name('announcements.fetch');
+
+// List semua pengumuman
+Route::get('announcement', [AnnouncementController::class, 'index'])->name('admin.announcement.index');
+
+// Form tambah pengumuman
+Route::get('announcement/create', [AnnouncementController::class, 'create'])->name('admin.announcement.create');
+
+// Simpan pengumuman baru
+Route::post('announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
+
+// Form edit
+Route::get('announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('admin.announcement.edit');
+
+// Update pengumuman
+Route::put('announcement/{id}', [AnnouncementController::class, 'update'])->name('admin.announcement.update');
+
+// Hapus pengumuman
+Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
+
 
 
 // Index (list semua mahasiswa)
@@ -78,5 +99,3 @@ Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic
 Route::resource('/majors', MajorController::class);
 
 Route::resource('/study-programs', StudyProgramController::class);
-
-
