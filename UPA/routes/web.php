@@ -78,3 +78,5 @@ Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic
 Route::resource('/majors', MajorController::class);
 
 Route::resource('/study-programs', StudyProgramController::class);
+
+
