@@ -1,66 +1,80 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\ToeicScore;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ToeicScoreController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-  public function index()
+    public function index()
     {
-        $scores = ToeicScore::with('user')->get();
-        return view('toeic-scores.index', compact('scores'));
+        $toeicScores = ToeicScore::latest()->get();
+        return view('toeic_scores.index', compact('toeicScores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('toeic_scores.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'picture' => 'required|mimes:pdf|max:2048',
+        ]);
+
+        $path = $request->file('picture')->store('toeic_pdfs', 'public');
+
+        ToeicScore::create([
+            'picture' => $path
+        ]);
+
+        return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil diunggah.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $toeicScore = ToeicScore::findOrFail($id);
+        return view('toeic_scores.show', compact('toeicScore'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $toeicScore = ToeicScore::findOrFail($id);
+        return view('toeic_scores.edit', compact('toeicScore'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $toeicScore = ToeicScore::findOrFail($id);
+
+        if ($request->hasFile('picture')) {
+            $request->validate([
+                'picture' => 'mimes:pdf|max:2048',
+            ]);
+
+            if ($toeicScore->picture) {
+                Storage::disk('public')->delete($toeicScore->picture);
+            }
+
+            $path = $request->file('picture')->store('toeic_pdfs', 'public');
+            $toeicScore->update(['picture' => $path]);
+        }
+
+        return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $toeicScore = ToeicScore::findOrFail($id);
+
+        if ($toeicScore->picture) {
+            Storage::disk('public')->delete($toeicScore->picture);
+        }
+
+        $toeicScore->delete();
+
+        return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil dihapus.');
     }
 }

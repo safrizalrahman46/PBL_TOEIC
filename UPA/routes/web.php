@@ -110,3 +110,12 @@ Route::resource('/study-programs', StudyProgramController::class);
     Route::get('/educational-staff/{id}/edit', [EducationalStaffController::class, 'edit'])->name('educational-staff.edit');
     Route::put('/educational-staff/{id}', [EducationalStaffController::class, 'update'])->name('educational-staff.update');
     Route::delete('/educational-staff/{id}', [EducationalStaffController::class, 'destroy'])->name('educational-staff.destroy');
+
+
+    Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
+Route::get('/toeic-scores/create', [ToeicScoreController::class, 'create'])->name('toeic-scores.create');
+Route::post('/toeic-scores', [ToeicScoreController::class, 'store'])->name('toeic-scores.store');
+Route::get('/toeic-scores/{id}', [ToeicScoreController::class, 'show'])->name('toeic-scores.show');
+Route::get('/toeic-scores/{id}/edit', [ToeicScoreController::class, 'edit'])->name('toeic-scores.edit');
+Route::post('/toeic-scores/{id}', [ToeicScoreController::class, 'update'])->name('toeic-scores.update');
+Route::delete('/toeic-scores/{id}', [ToeicScoreController::class, 'destroy'])->name('toeic-scores.destroy');
