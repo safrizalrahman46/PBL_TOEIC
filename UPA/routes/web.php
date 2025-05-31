@@ -22,6 +22,11 @@ use App\Http\Controllers\ToeicScoreController;
 use App\Http\Controllers\ToeicRegistrationController;
 // use App\Http\Controllers\EducationalStaffController;
 
+use App\Http\Controllers\ProfileController;
+
+
+
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -127,3 +132,10 @@ Route::get('/toeic-registration', [ToeicRegistrationController::class, 'create']
 Route::post('/toeic-registration', [ToeicRegistrationController::class, 'store'])->name('toeic-registration.store');
 Route::get('/toeic-registration/success/{id}', [ToeicRegistrationController::class, 'success'])->name('toeic-registration.success');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/change-password', [ProfileController::class, 'editPassword'])->name('profile.change-password');
+    Route::put('/profile/update-password', action: [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+});

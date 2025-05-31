@@ -9,7 +9,7 @@
             <label for="nim" class="form-label">NIM Mahasiswa</label>
             <input type="text" class="form-control" id="nim" name="nim" required>
         </div>
-        <button type="submit" class="btn btn-primary">Daftar & Dapatkan Link Pembayaran</button>
+        <button type="submit" class="btn btn-success">Daftar & Dapatkan Link Pembayaran</button>
     </form>
 </div>
 @endsection

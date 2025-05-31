@@ -15,7 +15,7 @@
 
 <div class="d-flex flex-column p-3 bg-white shadow-sm" style="width: 240px; height: 100vh;">
     <!-- Logo -->
-    <h5 class="text-primary fw-bold mb-4">TOEIC Admin</h5>
+    <h5 class="text-primary fw-bold mb-4">UPA</h5>
 
     <!-- General -->
     <small class="text-uppercase text-muted fw-bold mb-2">General</small>
