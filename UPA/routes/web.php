@@ -19,6 +19,7 @@ use App\Http\Controllers\EducationalStaffController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\ToeicScoreController;
+use App\Http\Controllers\ToeicRegistrationController;
 // use App\Http\Controllers\EducationalStaffController;
 
 
@@ -119,3 +120,10 @@ Route::get('/toeic-scores/{id}', [ToeicScoreController::class, 'show'])->name('t
 Route::get('/toeic-scores/{id}/edit', [ToeicScoreController::class, 'edit'])->name('toeic-scores.edit');
 Route::post('/toeic-scores/{id}', [ToeicScoreController::class, 'update'])->name('toeic-scores.update');
 Route::delete('/toeic-scores/{id}', [ToeicScoreController::class, 'destroy'])->name('toeic-scores.destroy');
+
+
+Route::get('/toeic-registration/index', [ToeicRegistrationController::class, 'index'])->name('toeic-registration.index');
+Route::get('/toeic-registration', [ToeicRegistrationController::class, 'create'])->name('toeic-registration.create');
+Route::post('/toeic-registration', [ToeicRegistrationController::class, 'store'])->name('toeic-registration.store');
+Route::get('/toeic-registration/success/{id}', [ToeicRegistrationController::class, 'success'])->name('toeic-registration.success');
+

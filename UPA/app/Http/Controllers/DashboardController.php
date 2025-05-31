@@ -4,17 +4,33 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\Announcement;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // return inertia::render('Dashboard/Index');
-            return view('dashboard.index');
-    }
+  public function index()
+{
+    // Total pengumuman
+    $totalAnnouncements = Announcement::count();
+
+    // Pengumuman berdasarkan tipe
+    $typeCounts = Announcement::select('type', DB::raw('count(*) as total'))
+        ->groupBy('type')
+        ->pluck('total', 'type')
+        ->toArray();
+
+    // Pengumuman bulan ini
+    $monthlyAnnouncements = Announcement::whereMonth('created_at', Carbon::now()->month)->count();
+
+    // Kirim data ke view
+    return view('dashboard.index', compact('totalAnnouncements', 'typeCounts', 'monthlyAnnouncements'));
+}
 
     /**
      * Show the form for creating a new resource.
