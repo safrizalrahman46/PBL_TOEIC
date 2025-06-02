@@ -33,8 +33,9 @@ class ProfileController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('public/photos');
-            $user->photo_path = str_replace('public/', 'storage/', $path);
+            $path = $request->file('photo')->store('photos', 'public');
+            $user->photo_path = $path; // Contoh hasil: photos/namafile.jpg
+
         }
 
         $user->name = $request->name;
