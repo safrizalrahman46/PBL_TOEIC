@@ -14,7 +14,7 @@
 
 <div class="mb-3">
     <label>Type</label>
-    <select name="type" class="form-control" required>
+    <select name="type" class="form-control" id="type" required>
         @foreach (['test_schedule', 'test_result', 'certificate', 'general'] as $type)
             <option value="{{ $type }}" {{ old('type', $a->type ?? '') === $type ? 'selected' : '' }}>
                 {{ ucfirst(str_replace('_', ' ', $type)) }}
@@ -36,10 +36,12 @@
 
 <div class="mb-3">
     <label>Event Date</label>
-    <input type="date" name="event_date" class="form-control" value="{{ old('event_date', isset($a->event_date) ? $a->event_date->format('Y-m-d') : '') }}">
+    <input type="date" name="event_date" class="form-control" id="event_date"
+        value="{{ old('event_date', isset($a->event_date) ? $a->event_date->format('Y-m-d') : '') }}">
 </div>
 
 <div class="mb-3">
     <label>Pickup Certificate</label>
-    <input type="date" name="pickup_certificate" class="form-control" value="{{ old('pickup_certificate', isset($a->pickup_certificate) ? $a->pickup_certificate->format('Y-m-d') : '') }}">
+    <input type="date" name="pickup_certificate" class="form-control" id="pickup_certificate"
+        value="{{ old('pickup_certificate', isset($a->pickup_certificate) ? $a->pickup_certificate->format('Y-m-d') : '') }}">
 </div>

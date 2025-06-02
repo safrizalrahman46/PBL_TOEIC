@@ -76,25 +76,33 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 // // Route::resource('announcements', AnnouncementController::class);
 // Route::get('/fetch-announcements', [AnnouncementController::class, 'fetch'])->name('announcements.fetch');
 
-// List semua pengumuman
-Route::get('announcement', [AnnouncementController::class, 'index'])->name('admin.announcement.index');
+// // List semua pengumuman
+// Route::get('announcement', [AnnouncementController::class, 'index'])->name('admin.announcement.index');
 
-// Form tambah pengumuman
-Route::get('announcement/create', [AnnouncementController::class, 'create'])->name('admin.announcement.create');
+// // Form tambah pengumuman
+// Route::get('announcement/create', [AnnouncementController::class, 'create'])->name('admin.announcement.create');
 
-// Simpan pengumuman baru
-Route::post('announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
+// // Simpan pengumuman baru
+// Route::post('announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
 
-// Form edit
-Route::get('announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('admin.announcement.edit');
+// // Form edit
+// Route::get('announcement/{id}/edit', [AnnouncementController::class, 'edit'])->name('admin.announcement.edit');
 
-// Update pengumuman
-Route::put('announcement/{id}', [AnnouncementController::class, 'update'])->name('admin.announcement.update');
+// // Update pengumuman
+// Route::put('announcement/{id}', [AnnouncementController::class, 'update'])->name('admin.announcement.update');
 
-// Hapus pengumuman
-Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
+// // Hapus pengumuman
+// Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
 
-
+Route::prefix('announcement')->group(function () {
+    Route::get('/', [AnnouncementController::class, 'index'])->name('announcement.index');
+    Route::get('/create', [AnnouncementController::class, 'create'])->name('announcement.create');
+    Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');
+    Route::get('/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
+    Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
+    Route::put('/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
+    Route::delete('/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+});
 
 // Index (list semua mahasiswa)
 Route::get('/admin/student-register', [AdminRegistrationController::class, 'index'])->name('admin.student.register');
