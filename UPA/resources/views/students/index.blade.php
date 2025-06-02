@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3>Student List</h3>
+    <h3>Free Student Registration</h3>
     <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">Add Student</a>
 
     @include('partials.flash')
