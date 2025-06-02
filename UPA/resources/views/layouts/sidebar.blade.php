@@ -35,7 +35,9 @@
     <!-- TOEIC -->
     <small class="text-uppercase text-muted fw-bold mb-2 mt-3">TOEIC</small>
     <ul class="nav nav-pills flex-column mb-3">
-        <li class="nav-item"><a href="/admin/student-register" class="nav-link text-dark"><i
+        {{--  <li class="nav-item"><a href="/admin/student-register" class="nav-link text-dark"><i
+                    class="bi bi-pencil-square me-2"></i> Free Student Registrations</a></li>  --}}
+         <li class="nav-item"><a href="/students" class="nav-link text-dark"><i
                     class="bi bi-pencil-square me-2"></i> Free Student Registrations</a></li>
         <li class="nav-item"><a href="/toeic-registration/index" class="nav-link text-dark"><i
                     class="bi bi-pencil-square me-2"></i> Paid Student Registrations</a></li>

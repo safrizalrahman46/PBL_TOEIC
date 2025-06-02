@@ -20,6 +20,7 @@ use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\ToeicScoreController;
 use App\Http\Controllers\ToeicRegistrationController;
+use App\Http\Controllers\StudentUserController;
 // use App\Http\Controllers\EducationalStaffController;
 
 use App\Http\Controllers\ProfileController;
@@ -93,6 +94,16 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 // // Hapus pengumuman
 // Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
+
+Route::prefix('students')->group(function () {
+    Route::get('/', [StudentUserController::class, 'index'])->name('students.index');
+    Route::get('/create', [StudentUserController::class, 'create'])->name('students.create');
+    Route::post('/', [StudentUserController::class, 'store'])->name('students.store');
+    Route::get('/{id}', [StudentUserController::class, 'show'])->name('students.show');
+    Route::get('/{id}/edit', [StudentUserController::class, 'edit'])->name('students.edit');
+    Route::put('/{id}', [StudentUserController::class, 'update'])->name('students.update');
+    Route::delete('/{id}', [StudentUserController::class, 'destroy'])->name('students.destroy');
+});
 
 Route::prefix('announcement')->group(function () {
     Route::get('/', [AnnouncementController::class, 'index'])->name('announcement.index');
