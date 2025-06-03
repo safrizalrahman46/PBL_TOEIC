@@ -14,10 +14,13 @@
                 <th>Username</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>NIM</th>
-                <th>Study Program</th>
-                <th>Major</th>
-                <th>Campus</th>
+                <th>NIK</th>
+                <th>Origin Address</th>
+                <th>Current Address</th>
+                {{--  <th>NIM</th>  --}}
+                {{--  <th>Study Program</th>  --}}
+                {{--  <th>Major</th>  --}}
+                {{--  <th>Campus</th>  --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -28,10 +31,12 @@
                 <td>{{ $staff->username }}</td>
                 <td>{{ $staff->name }}</td>
                 <td>{{ $staff->email }}</td>
-                <td>{{ $staff->nim }}</td>
-                <td>{{ optional($staff->studyProgram)->name }}</td>
-                <td>{{ optional($staff->major)->name }}</td>
-                <td>{{ $staff->campus }}</td>
+                <td>{{ $staff->nik }}</td>
+                <td>{{ $staff->origin_address }}</td>
+                {{--  <td>{{ $staff->nim }}</td>  --}}
+                {{--  <td>{{ optional($staff->studyProgram)->name }}</td>  --}}
+                {{--  <td>{{ optional($staff->major)->name }}</td>  --}}
+                {{--  <td>{{ $staff->campus }}</td>  --}}
                 <td>
                     <a href="{{ route('educational-staff.show', $staff->id) }}" class="btn btn-sm btn-light"><i class="bi bi-eye"></i></a>
                     <a href="{{ route('educational-staff.edit', $staff->id) }}" class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></a>

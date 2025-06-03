@@ -16,6 +16,7 @@ use App\Http\Controllers\PaidToeicController;
 use App\Http\Controllers\FreeToeicController;
 use App\Http\Controllers\AdminRegistrationController;
 use App\Http\Controllers\EducationalStaffController;
+use App\Http\Controllers\EducationalStaffRegistrationController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\ToeicScoreController;
@@ -159,4 +160,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/change-password', [ProfileController::class, 'editPassword'])->name('profile.change-password');
     Route::put('/profile/update-password', action: [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+});
+
+Route::prefix('educational-staff-registration')->group(function () {
+    Route::get('/', [EducationalStaffRegistrationController::class, 'index'])->name('educational-staff-registration.index');
+    Route::get('/create', [EducationalStaffRegistrationController::class, 'create'])->name('educational-staff-registration.create');
+    Route::post('/', [EducationalStaffRegistrationController::class, 'store'])->name('educational-staff-registration.store');
+    Route::get('/{id}/success', [EducationalStaffRegistrationController::class, 'success'])->name('educational-staff-registration.success');
+    Route::get('/{id}', [EducationalStaffRegistrationController::class, 'show'])->name('educational-staff-registration.show');
+    Route::get('/{id}/edit', [EducationalStaffRegistrationController::class, 'edit'])->name('educational-staff-registration.edit');
+    Route::put('/{id}', [EducationalStaffRegistrationController::class, 'update'])->name('educational-staff-registration.update');
+    Route::delete('/{id}', [EducationalStaffRegistrationController::class, 'destroy'])->name('educational-staff-registration.destroy');
 });

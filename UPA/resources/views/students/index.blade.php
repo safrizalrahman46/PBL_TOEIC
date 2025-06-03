@@ -3,8 +3,11 @@
 @section('content')
 <div class="container">
     <h3>Free Student Registration</h3>
-    <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">Add Student</a>
-
+       <div class="d-flex justify-content-end mb-3">
+        <a href="{{ route('students.create') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Add Student
+        </a>
+    </div>
     @include('partials.flash')
 
     <table class="table table-bordered table-striped">

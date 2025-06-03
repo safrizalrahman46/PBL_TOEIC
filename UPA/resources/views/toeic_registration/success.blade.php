@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container">
-    <h3>Registrasi Berhasil</h3>
-    <p>Terima kasih, NIM: <strong>{{ $registration->nim }}</strong>.</p>
-    <p>Silakan lanjutkan ke pembayaran melalui link berikut:</p>
+    <h3>Registration Successful</h3>
+    <p>Thank you, Student ID: <strong>{{ $registration->nim }}</strong>.</p>
+    <p>Please proceed to the payment through the following link:</p>
 
     <a href="https://example.com/pembayaran/{{ $registration->id }}" class="btn btn-success" target="_blank">
-        Klik untuk Bayar (Dummy Link)
+        Click to Pay (Dummy Link)
     </a>
 
-    <p class="mt-3 text-muted">*Ini hanya link simulasi. Pembayaran tidak sungguhan.</p>
+    <p class="mt-3 text-muted">*This is just a simulation link. No actual payment will be processed.</p>
 </div>
 @endsection
