@@ -42,24 +42,28 @@ class StudentUserController extends Controller
             'student_card_path' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'status' => 'nullable|in:pending,approved,rejected',
             'rejection_reason' => 'nullable|string|max:255',
+            //  'password' => 'required|min:6|confirmed',
+            // 'password_confirmation' => 'required',
         ]);
+
+        // Tambahkan password default
+        $data['password'] = bcrypt('12345678');
 
 
         // Cek apakah sudah pernah daftar dengan NIM yang sama
         if (User::where('nim', $request->nim)->where('has_registered_free_toeic', true)->exists()) {
-            return back()->withErrors(['nim' => 'NIM ini sudah pernah didaftarkan untuk Free TOEIC.'])->withInput();
+            return back()->withErrors(['nim' => 'This NIM has already registered for Free TOEIC.'])->withInput();
         }
 
+        // File upload
         if ($request->hasFile('photo_path')) {
-            $validated['photo_path'] = $request->file('photo_path')->store('photos');
+            $data['photo_path'] = $request->file('photo_path')->store('photos', 'public');
         }
-
         if ($request->hasFile('id_card_path')) {
-            $validated['id_card_path'] = $request->file('id_card_path')->store('id_cards');
+            $data['id_card_path'] = $request->file('id_card_path')->store('id_cards', 'public');
         }
-
         if ($request->hasFile('student_card_path')) {
-            $validated['student_card_path'] = $request->file('student_card_path')->store('student_cards');
+            $data['student_card_path'] = $request->file('student_card_path')->store('student_cards', 'public');
         }
 
         $validated['password'] = bcrypt($request->password);

@@ -1,6 +1,4 @@
-@php
-    $s = $student ?? null;
-@endphp
+@php $s = $student ?? null; @endphp
 
 <div class="mb-3">
     <label>Username</label>
@@ -42,9 +40,9 @@
     <select name="study_program_id" class="form-control" required>
         <option value="">-- Choose --</option>
         @foreach ($studyPrograms as $program)
-            <option value="{{ $program->id }}" {{ old('study_program_id', $s->study_program_id ?? '') == $program->id ? 'selected' : '' }}>
-                {{ $program->name }}
-            </option>
+        <option value="{{ $program->id }}" {{ old('study_program_id', $s->study_program_id ?? '') == $program->id ? 'selected' : '' }}>
+            {{ $program->name }}
+        </option>
         @endforeach
     </select>
 </div>
@@ -54,16 +52,21 @@
     <select name="major_id" class="form-control" required>
         <option value="">-- Choose --</option>
         @foreach ($majors as $major)
-            <option value="{{ $major->id }}" {{ old('major_id', $s->major_id ?? '') == $major->id ? 'selected' : '' }}>
-                {{ $major->name }}
-            </option>
+        <option value="{{ $major->id }}" {{ old('major_id', $s->major_id ?? '') == $major->id ? 'selected' : '' }}>
+            {{ $major->name }}
+        </option>
         @endforeach
     </select>
 </div>
 
 <div class="mb-3">
     <label>Campus</label>
-    <input type="text" name="campus" class="form-control" value="{{ old('campus', $s->campus ?? '') }}">
+    <select name="campus" class="form-control">
+        <option value="">-- Select Campus --</option>
+        @foreach (['Main', 'PSDKU Kediri', 'PSDKU Lumajang', 'PSDKU Pamekasan'] as $campus)
+            <option value="{{ $campus }}" {{ old('campus', $s->campus ?? '') == $campus ? 'selected' : '' }}>{{ $campus }}</option>
+        @endforeach
+    </select>
 </div>
 
 <div class="mb-3">
@@ -89,21 +92,3 @@
         <small class="d-block mt-1"><a href="{{ Storage::url($s->student_card_path) }}" target="_blank">Current Student Card</a></small>
     @endif
 </div>
-
-@if(isset($s))
-    <div class="mb-3">
-        <label>Status</label>
-        <select name="status" class="form-control">
-            @foreach(['pending', 'approved', 'rejected'] as $status)
-                <option value="{{ $status }}" {{ $s->status === $status ? 'selected' : '' }}>
-                    {{ ucfirst($status) }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label>Rejection Reason</label>
-        <input type="text" name="rejection_reason" class="form-control" value="{{ old('rejection_reason', $s->rejection_reason ?? '') }}">
-    </div>
-@endif

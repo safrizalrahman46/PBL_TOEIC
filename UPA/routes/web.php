@@ -95,14 +95,14 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 // // Hapus pengumuman
 // Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
 
-Route::prefix('students')->group(function () {
-    Route::get('/', [StudentUserController::class, 'index'])->name('students.index');
-    Route::get('/create', [StudentUserController::class, 'create'])->name('students.create');
-    Route::post('/', [StudentUserController::class, 'store'])->name('students.store');
-    Route::get('/{id}', [StudentUserController::class, 'show'])->name('students.show');
-    Route::get('/{id}/edit', [StudentUserController::class, 'edit'])->name('students.edit');
-    Route::put('/{id}', [StudentUserController::class, 'update'])->name('students.update');
-    Route::delete('/{id}', [StudentUserController::class, 'destroy'])->name('students.destroy');
+Route::prefix('students')->name('students.')->group(function () {
+    Route::get('/', [StudentUserController::class, 'index'])->name('index');
+    Route::get('/create', [StudentUserController::class, 'create'])->name('create');
+    Route::post('/', [StudentUserController::class, 'store'])->name('store');
+    Route::get('/{id}', [StudentUserController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [StudentUserController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [StudentUserController::class, 'update'])->name('update');
+    Route::delete('/{id}', [StudentUserController::class, 'destroy'])->name('destroy');
 });
 
 Route::prefix('announcement')->group(function () {
