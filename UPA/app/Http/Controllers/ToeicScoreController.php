@@ -21,14 +21,12 @@ class ToeicScoreController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'picture' => 'required|mimes:pdf|max:2048',
+            'pdf' => 'required|mimes:pdf|max:2048',
         ]);
 
-        $path = $request->file('picture')->store('toeic_pdfs', 'public');
+        $path = $request->file('pdf')->store('toeic_pdfs', 'public');
 
-        ToeicScore::create([
-            'picture' => $path
-        ]);
+        ToeicScore::create(['pdf' => $path]);
 
         return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil diunggah.');
     }
@@ -49,17 +47,14 @@ class ToeicScoreController extends Controller
     {
         $toeicScore = ToeicScore::findOrFail($id);
 
-        if ($request->hasFile('picture')) {
-            $request->validate([
-                'picture' => 'mimes:pdf|max:2048',
-            ]);
+        $request->validate([
+            'pdf' => 'nullable|mimes:pdf|max:2048',
+        ]);
 
-            if ($toeicScore->picture) {
-                Storage::disk('public')->delete($toeicScore->picture);
-            }
-
-            $path = $request->file('picture')->store('toeic_pdfs', 'public');
-            $toeicScore->update(['picture' => $path]);
+        if ($request->hasFile('pdf')) {
+            Storage::disk('public')->delete($toeicScore->pdf);
+            $path = $request->file('pdf')->store('toeic_pdfs', 'public');
+            $toeicScore->update(['pdf' => $path]);
         }
 
         return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil diperbarui.');
@@ -68,11 +63,7 @@ class ToeicScoreController extends Controller
     public function destroy($id)
     {
         $toeicScore = ToeicScore::findOrFail($id);
-
-        if ($toeicScore->picture) {
-            Storage::disk('public')->delete($toeicScore->picture);
-        }
-
+        Storage::disk('public')->delete($toeicScore->pdf);
         $toeicScore->delete();
 
         return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil dihapus.');

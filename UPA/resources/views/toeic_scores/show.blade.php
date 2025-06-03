@@ -4,8 +4,8 @@
 <div class="container">
     <h2>Detail TOEIC PDF</h2>
     <p><strong>ID:</strong> {{ $toeicScore->id }}</p>
-    <p><strong>Dibuat pada:</strong> {{ $toeicScore->created_at }}</p>
-    <embed src="{{ asset('storage/' . $toeicScore->picture) }}" type="application/pdf" width="100%" height="600px"/>
-    <br><a href="{{ route('toeic-scores.index') }}" class="btn btn-secondary mt-3">Kembali</a>
+    <p><strong>Diunggah Pada:</strong> {{ $toeicScore->created_at->format('d-m-Y H:i') }}</p>
+    <p><strong>PDF:</strong></p>
+    <iframe src="{{ asset('storage/' . $toeicScore->pdf) }}" width="100%" height="600px"></iframe>
 </div>
 @endsection

@@ -8,6 +8,6 @@ class ToeicScore extends Model
 {
     protected $table = 'toeic_scores';
 
-    protected $fillable = ['picture'];
+       protected $fillable = ['pdf'];
 }
 

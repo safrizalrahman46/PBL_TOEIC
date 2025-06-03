@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Major;
@@ -9,7 +8,8 @@ class MajorController extends Controller
 {
     public function index()
     {
-        $majors = Major::all();
+       $majors = Major::orderBy('id', 'desc')->get();
+
         return view('majors.index', compact('majors'));
     }
 
@@ -21,28 +21,46 @@ class MajorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:50',
+            'name' => 'required|string|max:100',
+            'code' => 'nullable|string|max:20',
         ]);
-        Major::create($request->only('name'));
-        return redirect()->route('majors.index')->with('success', 'Major created successfully.');
+
+        Major::create($request->only('name', 'code'));
+
+        return redirect()->route('majors.index')->with('success', 'Major berhasil ditambahkan.');
     }
 
-    public function edit(Major $major)
+    public function show($id)
     {
+        $major = Major::findOrFail($id);
+        return view('majors.show', compact('major'));
+    }
+
+    public function edit($id)
+    {
+        $major = Major::findOrFail($id);
         return view('majors.edit', compact('major'));
     }
 
-    public function update(Request $request, Major $major)
+    public function update(Request $request, $id)
     {
-        $request->validate(['name' => 'required|string|max:255']);
-        $major->update($request->only('name'));
-        return redirect()->route('majors.index')->with('success', 'Major updated successfully.');
+        $major = Major::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'code' => 'nullable|string|max:20',
+        ]);
+
+        $major->update($request->only('name', 'code'));
+
+        return redirect()->route('majors.index')->with('success', 'Major berhasil diperbarui.');
     }
 
-    public function destroy(Major $major)
+    public function destroy($id)
     {
+        $major = Major::findOrFail($id);
         $major->delete();
-        return redirect()->route('majors.index')->with('success', 'Major deleted.');
+
+        return redirect()->route('majors.index')->with('success', 'Major berhasil dihapus.');
     }
 }

@@ -125,11 +125,39 @@ Route::get('/admin/student-register/create', [AdminRegistrationController::class
 // Simpan mahasiswa baru
 Route::post('/admin/student-register', [AdminRegistrationController::class, 'store'])->name('admin.student.register.store');
 
-Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic.scores.index');
+// Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic.scores.index');
+Route::prefix('toeic-scores')->name('toeic-scores.')->group(function () {
+    Route::get('/', [ToeicScoreController::class, 'index'])->name('index');
+    Route::get('/create', [ToeicScoreController::class, 'create'])->name('create');
+    Route::post('/store', [ToeicScoreController::class, 'store'])->name('store');
+    Route::get('/{id}', [ToeicScoreController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [ToeicScoreController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [ToeicScoreController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ToeicScoreController::class, 'destroy'])->name('destroy');
+});
 
-Route::resource('/majors', MajorController::class);
+// Route::resource('/majors', MajorController::class);
 
-Route::resource('/study-programs', StudyProgramController::class);
+Route::prefix('majors')->name('majors.')->group(function () {
+    Route::get('/', [MajorController::class, 'index'])->name('index');
+    Route::get('/create', [MajorController::class, 'create'])->name('create');
+    Route::post('/store', [MajorController::class, 'store'])->name('store');
+    Route::get('/{id}', [MajorController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [MajorController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [MajorController::class, 'update'])->name('update');
+    Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
+});
+
+// Route::resource('/study-programs', StudyProgramController::class);
+Route::prefix('study-programs')->name('study-programs.')->group(function () {
+    Route::get('/', [StudyProgramController::class, 'index'])->name('index');
+    Route::get('/create', [StudyProgramController::class, 'create'])->name('create');
+    Route::post('/store', [StudyProgramController::class, 'store'])->name('store');
+    Route::get('/{id}', [StudyProgramController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [StudyProgramController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [StudyProgramController::class, 'update'])->name('update');
+    Route::delete('/{id}', [StudyProgramController::class, 'destroy'])->name('destroy');
+});
 
     Route::get('/educational-staff', [EducationalStaffController::class, 'index'])->name('educational-staff.index');
     Route::get('/educational-staff/create', [EducationalStaffController::class, 'create'])->name('educational-staff.create');

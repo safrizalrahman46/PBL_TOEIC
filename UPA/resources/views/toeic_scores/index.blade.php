@@ -9,11 +9,12 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>PDF</th>
+                <th>Diunggah Pada</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -21,9 +22,8 @@
             @foreach($toeicScores as $score)
                 <tr>
                     <td>{{ $score->id }}</td>
-                    <td>
-                        <a href="{{ asset('storage/' . $score->picture) }}" target="_blank">Lihat PDF</a>
-                    </td>
+                    <td><a href="{{ asset('storage/' . $score->pdf) }}" target="_blank">Lihat PDF</a></td>
+                    <td>{{ $score->created_at->format('d-m-Y H:i') }}</td>
                     <td>
                         <a href="{{ route('toeic-scores.show', $score->id) }}" class="btn btn-info btn-sm">Detail</a>
                         <a href="{{ route('toeic-scores.edit', $score->id) }}" class="btn btn-warning btn-sm">Edit</a>

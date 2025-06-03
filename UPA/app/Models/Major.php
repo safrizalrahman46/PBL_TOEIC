@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Major extends Model
 {
     use HasFactory;
-
+  public $timestamps = false; // tambahkan ini
     protected $fillable = [
         'name',
         'code',

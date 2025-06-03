@@ -1,35 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4>Majors</h4>
-    <a href="{{ route('majors.create') }}" class="btn btn-success">+ Add Major</a>
-</div>
-<table class="table table-bordered bg-white shadow-sm">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Major Name</th>
-            <th>Major Code</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($majors as $index => $major)
-        <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ $major->name }}</td>
-            <td>{{ $major->code ?? '-' }}</td>
-            <td>
-                <a href="{{ route('majors.edit', $major) }}" class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></a>
-                <form action="{{ route('majors.destroy', $major) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this major?')">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-sm btn-light"><i class="bi bi-trash"></i></button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+<div class="container">
+    <h2>Daftar Jurusan</h2>
+    <a href="{{ route('majors.create') }}" class="btn btn-primary mb-3">Tambah Jurusan</a>
 
+    @if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Kode</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($majors as $major)
+            <tr>
+                <td>{{ $major->id }}</td>
+                <td>{{ $major->name }}</td>
+                <td>{{ $major->code ?? '-' }}</td>
+                <td>
+                    <a href="{{ route('majors.show', $major->id) }}" class="btn btn-sm btn-light" title="Detail">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ route('majors.edit', $major->id) }}" class="btn btn-sm btn-light" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <form action="{{ route('majors.destroy', $major->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Yakin ingin menghapus jurusan ini?')"
+                            class="btn btn-sm btn-light" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </td>
+
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @endsection
