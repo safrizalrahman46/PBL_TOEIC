@@ -10,38 +10,45 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<div class="table-responsive">
-    <table class="table table-bordered bg-white shadow-sm">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Target</th>
-                <th>Event Date</th>
-                <th>Pickup Cert.</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($announcements as $index => $a)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $a->title }}</td>
-                <td>{{ ucfirst(str_replace('_', ' ', $a->type)) }}</td>
-                <td>{{ ucfirst($a->target_audience) }}</td>
-                <td>{{ $a->event_date ? $a->event_date->format('Y-m-d') : '-' }}</td>
-                <td>{{ $a->pickup_certificate ? $a->pickup_certificate->format('Y-m-d') : '-' }}</td>
-                <td>
-                    <a href="{{ route('announcement.edit', $a->id) }}" class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></a>
-                    <form action="{{ route('announcement.destroy', $a->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this?')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-light"><i class="bi bi-trash"></i></button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div class="row">
+    @forelse ($announcements as $a)
+    <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100 shadow-sm">
+        <!-- Gambar default di bagian atas -->
+        {{--  <img src="{{ asset('images/polinema.png') }}" class="card-img-top" alt="Default Image">  --}}
+        <img src="{{ asset('images/polinema.png') }}" class="card-img-top" alt="Default Image" style="height: 180px; object-fit: cover;">
+
+
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ $a->title }}</h5>
+            <div class="mb-2">
+                <span class="badge bg-primary">{{ ucfirst(str_replace('_', ' ', $a->type)) }}</span>
+                <span class="badge bg-secondary">{{ ucfirst($a->target_audience) }}</span>
+            </div>
+            <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($a->content), 100) }}</p>
+            <ul class="list-unstyled small mb-2">
+                @if ($a->event_date)
+                    <li><strong>Event:</strong> {{ $a->event_date->format('Y-m-d') }}</li>
+                @endif
+                @if ($a->pickup_certificate)
+                    <li><strong>Pickup Cert.:</strong> {{ $a->pickup_certificate->format('Y-m-d') }}</li>
+                @endif
+            </ul>
+            <div class="mt-auto d-flex justify-content-between">
+                <a href="{{ route('announcement.edit', $a->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <form action="{{ route('announcement.destroy', $a->id) }}" method="POST" onsubmit="return confirm('Delete this?')">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @empty
+        <div class="col-12">
+            <div class="alert alert-info">No announcements found.</div>
+        </div>
+    @endforelse
 </div>
 @endsection
