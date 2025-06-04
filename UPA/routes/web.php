@@ -105,15 +105,16 @@ Route::prefix('students')->group(function () {
     Route::delete('/{id}', [StudentUserController::class, 'destroy'])->name('students.destroy');
 });
 
-Route::prefix('announcement')->group(function () {
-    Route::get('/', [AnnouncementController::class, 'index'])->name('announcement.index');
-    Route::get('/create', [AnnouncementController::class, 'create'])->name('announcement.create');
-    Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');
-    Route::get('/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
-    Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('announcement.edit');
-    Route::put('/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
-    Route::delete('/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+Route::prefix('admin/pengumuman')->name('admin.pengumuman.')->group(function () {
+    Route::get('/', [AnnouncementController::class, 'index'])->name('index');
+    Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
+    Route::post('/', [AnnouncementController::class, 'store'])->name('store');
+    Route::get('/{announcement}', [AnnouncementController::class, 'show'])->name('show');
+    Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('edit');
+    Route::put('/{announcement}', [AnnouncementController::class, 'update'])->name('update');
+    Route::delete('/{announcement}', [AnnouncementController::class, 'destroy'])->name('destroy');
 });
+
 
 // Index (list semua mahasiswa)
 Route::get('/admin/student-register', [AdminRegistrationController::class, 'index'])->name('admin.student.register');

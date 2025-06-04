@@ -10,7 +10,7 @@
         $cards = [
             ['title' => 'Total Registrasi TOEIC', 'amount' => $totalRegistrations, 'icon' => 'bi-person-lines-fill', 'color' => 'primary'],
             ['title' => 'Status Paid', 'amount' => $paidRegistrations, 'icon' => 'bi-cash-stack', 'color' => 'success'],
-            ['title' => 'Sertifikat Diunggah', 'amount' => $certUploaded, 'icon' => 'bi-file-earmark-check', 'color' => 'info']
+            ['title' => 'Sertifikat Diunggah', 'amount' => $certUploaded ?? 0, 'icon' => 'bi-file-earmark-check', 'color' => 'info'] // Pastikan $certUploaded didefinisikan di controller
         ];
     @endphp
     @foreach ($cards as $card)
@@ -44,7 +44,7 @@
             <thead class="table-light">
                 <tr>
                     <th>No</th>
-                    <th>NIM</th>
+                    <th>User ID</th> <!-- Mengganti NIM dengan User ID -->
                     <th>Status</th>
                     <th>Tanggal Daftar</th>
                     <th>Skor</th>
@@ -54,18 +54,18 @@
             <tbody>
                 @foreach($registrations as $i => $reg)
                 <tr>
-                    <td>{{ $i+1 }}</td>
-                    <td>{{ $reg->nim }}</td>
+                    <td>{{ $i + 1 }}</td>
+                    <td>{{ $reg->user_id }}</td> <!-- Mengganti nim dengan user_id -->
                     <td>
-                        <span class="badge bg-{{ $reg->status == 'paid' ? 'success' : 'secondary' }}">
-                            {{ strtoupper($reg->status) }}
+                        <span class="badge bg-{{ $reg->status_verifikasi == 1 ? 'success' : 'secondary' }}">
+                            {{ strtoupper($reg->status_verifikasi == 1 ? 'paid' : 'unpaid') }} <!-- Menyesuaikan status -->
                         </span>
                     </td>
-                    <td>{{ \Carbon\Carbon::parse($reg->registration_date)->format('d/m/Y') }}</td>
-                    <td>{{ $reg->score ?? '-' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($reg->tanggal_daftar)->format('d/m/Y') }}</td> <!-- Mengganti registration_date dengan tanggal_daftar -->
+                    <td>{{ $reg->skor ?? '-' }}</td> <!-- Mengganti skor dengan skor -->
                     <td>
-                        @if($reg->certificate_path)
-                            <a href="{{ asset('storage/' . $reg->certificate_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                        @if($reg->status_verifikasi)
+                            <a href="{{ asset('storage/' . $reg->status_verifikasi) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
                         @else
                             <span class="text-muted">Belum ada</span>
                         @endif

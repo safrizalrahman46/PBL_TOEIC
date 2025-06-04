@@ -1,64 +1,69 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
+use App\Models\PengumumanModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnnouncementController extends Controller
 {
     public function index()
     {
-        $announcements = Announcement::latest()->get();
-        return view('announcement.index', compact('announcements'));
+        $pengumuman = PengumumanModel::with('creator')->latest('tanggal')->get();
+        return view('admin.pengumuman.index', compact('pengumuman'));
     }
 
     public function create()
     {
-        return view('announcement.create');
+        return view('pengumuman.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:100',
-            'content' => 'required',
-            'type' => 'required|in:test_schedule,test_result,certificate,general',
-            'target_audience' => 'required|in:student,admin,all',
-            'event_date' => 'nullable|date',
-            'pickup_certificate' => 'nullable|date',
+            'judul' => 'required|max:150',
+            'isi' => 'required',
+            'tanggal' => 'required|date',
         ]);
 
-        Announcement::create($request->all());
+        PengumumanModel::create([
+            'judul' => $request->judul,
+            'isi' => $request->isi,
+            'tanggal' => $request->tanggal,
+            'created_by' => Auth::id(), // pastikan user login
+        ]);
 
-        return redirect()->route('announcement.index')->with('success', 'Announcement created successfully.');
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dibuat.');
     }
 
     public function edit($id)
     {
-        $announcement = Announcement::findOrFail($id);
-        return view('announcement.edit', compact('announcement'));
+        $pengumuman = PengumumanModel::findOrFail($id);
+        return view('pengumuman.edit', compact('pengumuman'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|max:100',
-            'content' => 'required',
-            'type' => 'required|in:test_schedule,test_result,certificate,general',
-            'target_audience' => 'required|in:student,admin,all',
-            'event_date' => 'nullable|date',
-            'pickup_certificate' => 'nullable|date',
+            'judul' => 'required|max:150',
+            'isi' => 'required',
+            'tanggal' => 'required|date',
         ]);
 
-        $announcement = Announcement::findOrFail($id);
-        $announcement->update($request->all());
+        $pengumuman = PengumumanModel::findOrFail($id);
+        $pengumuman->update([
+            'judul' => $request->judul,
+            'isi' => $request->isi,
+            'tanggal' => $request->tanggal,
+        ]);
 
-        return redirect()->route('announcement.index')->with('success', 'Announcement updated successfully.');
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        Announcement::findOrFail($id)->delete();
-        return back()->with('success', 'Announcement deleted.');
+        PengumumanModel::findOrFail($id)->delete();
+        return back()->with('success', 'Pengumuman berhasil dihapus.');
     }
 }
