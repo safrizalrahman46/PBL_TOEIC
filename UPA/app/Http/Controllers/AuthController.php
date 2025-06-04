@@ -13,39 +13,39 @@ class AuthController extends Controller
      */
     public function index()
     {
-          return view('auth.login', [
+        return view('auth.login', [
         ]);
     }
 
-   public function postlogin(Request $request)
-{
-    if ($request->ajax() || $request->wantsJson()) {
-        // $credentials = $request->only('username', 'password');
-        $credentials = $request->only('email', 'password');
+    public function postlogin(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            // $credentials = $request->only('username', 'password');
+            $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+            if (Auth::attempt($credentials)) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login Berhasil',
+                    'redirect' => url('/dashboard') // ⬅️ Redirect ke dashboard
+                ]);
+            }
+
             return response()->json([
-                'status' => true,
-                'message' => 'Login Berhasil',
-                'redirect' => url('/dashboard') // ⬅️ Redirect ke dashboard
+                'status' => false,
+                'message' => 'Login Gagal'
             ]);
         }
 
-        return response()->json([
-            'status' => false,
-            'message' => 'Login Gagal'
+        // fallback kalau bukan AJAX
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return redirect('/dashboard'); // ⬅️ Redirect langsung kalau bukan AJAX
+        }
+
+        return redirect('login')->withErrors([
+            'email' => 'Login gagal',
         ]);
     }
-
-    // fallback kalau bukan AJAX
-    if (Auth::attempt($request->only('email', 'password'))) {
-        return redirect('/dashboard'); // ⬅️ Redirect langsung kalau bukan AJAX
-    }
-
-    return redirect('login')->withErrors([
-        'email' => 'Login gagal',
-    ]);
-}
 
 
 

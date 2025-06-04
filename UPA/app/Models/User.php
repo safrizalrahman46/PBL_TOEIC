@@ -8,70 +8,39 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail // If email verification is required
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'user'; // <- sudah benar
+    protected $table = 'user'; // Ensure the table name is correct
+    protected $primary_Key = 'user_id';
+    // Define the fields that are mass assignable
+    protected $fillable = [
+        'username',
+        'nama',
+        'nim',
+        'nik',
+        'email',
+        'phone_number',
+        'password',
+        'role',
+        'jurusan_id',
+    ];
 
-//    protected $fillable = [
-//     'username',
-//     'email',
-//     'password',
-//     'role_name',
-//     'role_description',
-//     'nim',
-//     'name',
-//     'nik',
-//     'phone',
-//     'origin_address',
-//     'current_address',
-//     'study_program_id',
-//     'major_id',
-//     'campus',
-//     'has_registered_free_toeic',
-// ];
-
-protected $fillable = [
-    'username',
-    'email',
-    'password',
-    'role_name',
-    'role_description',
-    'nim',
-    'name',
-    'nik',
-    'phone',
-    'origin_address',
-    'current_address',
-    'study_program_id',
-    'major_id',
-    'campus',
-    'has_registered_free_toeic',
-    'status',
-    'rejection_reason',
-];
-
-
-
-
+    // Define fields that should be hidden (e.g., for security reasons)
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    // Cast attributes to specific types
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'has_registered_free_toeic' => 'boolean',
+        'email_verified_at' => 'datetime', // Casting email_verified_at to a DateTime
     ];
 
-    public function studyProgram()
+    // Define relationships
+    public function jurusan()
     {
-        return $this->belongsTo(StudyProgram::class);
-    }
-
-    public function major()
-    {
-        return $this->belongsTo(Major::class);
+        return $this->belongsTo(Jurusan::class, 'jurusan_id');
     }
 }

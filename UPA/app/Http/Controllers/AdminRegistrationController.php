@@ -15,8 +15,17 @@ class AdminRegistrationController extends Controller
         $students = m_user::with(['studyProgram:id,name', 'major:id,name'])
             ->where('role_name', 'student')
             ->select(
-                'id', 'username', 'name', 'email', 'nim', 'study_program_id', 'major_id',
-                'campus', 'role_name', 'status', 'rejection_reason'
+                'id',
+                'username',
+                'name',
+                'email',
+                'nim',
+                'study_program_id',
+                'major_id',
+                'campus',
+                'role_name',
+                'status',
+                'rejection_reason'
             )
             ->get();
 

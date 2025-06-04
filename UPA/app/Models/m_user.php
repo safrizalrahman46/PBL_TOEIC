@@ -10,26 +10,18 @@ class m_user extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'user';
+    protected $table = 'user'; // Ensure this is correct for your table name
 
     protected $fillable = [
         'username',
-        'email',
-        'password',
-        'role_name',
-        'role_description',
+        'nama',
         'nim',
-        'name',
         'nik',
-        'phone',
-        'origin_address',
-        'current_address',
-        'study_program_id',
-        'major_id',
-        'campus',
-        'has_registered_free_toeic',
-        'status',
-        'rejection_reason',
+        'email',
+        'phone_number',
+        'password',
+        'role',
+        'jurusan_id',
     ];
 
     protected $hidden = [
@@ -37,22 +29,9 @@ class m_user extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'has_registered_free_toeic' => 'boolean',
-    ];
-
-    public function studyProgram()
+    // Relation with 'jurusan' (Major)
+    public function jurusan()
     {
-        return $this->belongsTo(StudyProgram::class, 'study_program_id');
-    }
-
-    public function major()
-    {
-        return $this->belongsTo(Major::class, 'major_id');
-    }
-
-    public function toeicScores()
-    {
-        return $this->hasMany(ToeicScore::class, 'user_id');
+        return $this->belongsTo(Jurusan::class);
     }
 }

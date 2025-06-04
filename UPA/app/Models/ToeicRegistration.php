@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ToeicRegistration extends Model
 {
-    protected $table = 'toeic_registration';
+    protected $table = 'pendaftaran';
 
     protected $fillable = [
-        'nim', 'status', 'registration_date', 'score', 'certificate_path'
+        'user_id',
+        'tanggal_daftar',
+        'status_verifikasi',
+        // 'score',
+        // 'certificate_path'
     ];
 
     public $timestamps = false;

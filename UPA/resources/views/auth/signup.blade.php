@@ -10,7 +10,6 @@
 </head>
 
 <body class="bg-blue-50">
-
     <div class="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-white">
         <!-- Left Image Section -->
         <div class="flex items-center justify-center bg-[#1E4CFF] p-8">
@@ -24,7 +23,7 @@
         <div class="flex flex-col justify-center px-8 py-12">
             <div class="max-w-md w-full mx-auto">
                 <h2 class="text-blue-700 font-bold text-lg">LOGOS</h2>
-                <h1 class="text-xl font-semibold mt-2">Sign Up For Free Tho!</h1>
+                <h1 class="text-xl font-semibold mt-2">Sign Up For Free!</h1>
 
                 <form action="{{ route('signup.store') }}" method="POST" class="mt-6 space-y-4">
                     @csrf
@@ -32,18 +31,16 @@
                     <!-- Role Selection -->
                     <div>
                         <label class="block text-gray-400 text-sm mb-1">Role</label>
-                        <select id="roleSelect" name="role_name"
+                        <select id="roleSelect" name="role"
                             class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none" required>
                             <option disabled selected>Select Role</option>
-                            <option value="student" {{ old('role_name') == 'student' ? 'selected' : '' }}>Student
-                            </option>
-                            <option value="admin" {{ old('role_name') == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>Student</option>
+                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                             <option value="educational_staff"
-                                {{ old('role_name') == 'educational_staff' ? 'selected' : '' }}>
-                                Educational Staff
-                            </option>
+                                {{ old('role') == 'educational_staff' ? 'selected' : '' }}>
+                                Educational Staff</option>
                         </select>
-                        @error('role_name')
+                        @error('role')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
                         @enderror
                     </div>
@@ -103,60 +100,31 @@
                         </div>
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">Phone Number</label>
-                            <input name="phone" type="tel" value="{{ old('phone') }}"
+                            <input name="phone_number" type="tel" value="{{ old('phone_number') }}"
                                 class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-sm mb-1">Origin Address</label>
-                            <textarea name="origin_address"
-                                class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none">{{ old('origin_address') }}</textarea>
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-sm mb-1">Current Address</label>
-                            <textarea name="current_address"
-                                class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none">{{ old('current_address') }}</textarea>
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-sm mb-1">Study Program</label>
-                            <select name="study_program_id"
-                                class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none">
-                                <option disabled selected>Select Study Program</option>
-                                @foreach ($studyPrograms as $program)
-                                    <option value="{{ $program->id }}"
-                                        {{ old('study_program_id') == $program->id ? 'selected' : '' }}>
-                                        {{ $program->name }}
-                                    </option>
-                                @endforeach
-                            </select>
                         </div>
                         <div>
                             <label class="block text-gray-400 text-sm mb-1">Major</label>
-                            <select name="major_id"
+                            <select name="jurusan_id"
                                 class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none">
-                                <option disabled selected>Select Major</option>
+                                <option disabled selected value="">Select Major</option>
                                 @foreach ($majors as $major)
-                                    <option value="{{ $major->id }}"
-                                        {{ old('major_id') == $major->id ? 'selected' : '' }}>
-                                        {{ $major->name }}
+                                    <option value="{{ $major->jurusan_id }}"
+                                        {{ old('jurusan_id') == $major->jurusan_id ? 'selected' : '' }}>
+                                        {{ $major->nama_jurusan }}
                                     </option>
                                 @endforeach
                             </select>
+                            @error('jurusan_id')
+                                <p class="text-red-500 text-sm">{{ $message }}</p>
+                            @enderror
                         </div>
-                        <div>
-                            <label class="block text-gray-400 text-sm mb-1">Campus</label>
-                            <select name="campus"
-                                class="w-full px-4 py-3 bg-gray-100 rounded-md focus:outline-none">
-                                <option value="Main" {{ old('campus') == 'Main' ? 'selected' : '' }}>Main</option>
-                                <option value="PSDKU Kediri" {{ old('campus') == 'PSDKU Kediri' ? 'selected' : '' }}>PSDKU Kediri</option>
-                                <option value="PSDKU Lumajang" {{ old('campus') == 'PSDKU Lumajang' ? 'selected' : '' }}>PSDKU Lumajang</option>
-                                <option value="PSDKU Pamekasan" {{ old('campus') == 'PSDKU Pamekasan' ? 'selected' : '' }}>PSDKU Pamekasan</option>
-                            </select>
-                        </div>
+
                     </div>
 
                     <!-- Submit -->
                     <div class="pt-6">
-                        <button type="submit" class="w-full bg-gray-300 text-black py-3 rounded-md">
+                        <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-md">
                             Sign Up
                         </button>
                     </div>
@@ -170,82 +138,44 @@
         </div>
     </div>
 
-    <!-- JavaScript Toggle for Role -->
-    {{--  <script>
+    <script>
         const roleSelect = document.getElementById('roleSelect');
         const profileSection = document.getElementById('profileSection');
 
         function toggleProfileInputs() {
             const selectedRole = roleSelect.value;
-            const inputs = profileSection.querySelectorAll('input, select, textarea');
+            const allInputs = profileSection.querySelectorAll('input, select');
+
+            allInputs.forEach(el => {
+                el.disabled = false;
+                el.classList.remove('cursor-not-allowed', 'opacity-50');
+            });
+
+            profileSection.style.opacity = '1';
 
             if (selectedRole === 'admin') {
                 profileSection.style.opacity = '0.4';
-                inputs.forEach(el => {
+                allInputs.forEach(el => {
                     el.disabled = true;
                     el.classList.add('cursor-not-allowed');
                 });
-            } else {
-                profileSection.style.opacity = '1';
-                inputs.forEach(el => {
-                    el.disabled = false;
-                    el.classList.remove('cursor-not-allowed');
+            }
+
+            if (selectedRole === 'educational_staff') {
+                const toDisable = ['input[name="nim"]', 'select[name="jurusan_id"]'];
+                toDisable.forEach(selector => {
+                    const el = document.querySelector(selector);
+                    if (el) {
+                        el.disabled = true;
+                        el.classList.add('cursor-not-allowed', 'opacity-50');
+                    }
                 });
             }
         }
 
         roleSelect.addEventListener('change', toggleProfileInputs);
         window.addEventListener('DOMContentLoaded', toggleProfileInputs);
-    </script>  --}}
-
-    <script>
-    const roleSelect = document.getElementById('roleSelect');
-    const profileSection = document.getElementById('profileSection');
-
-    function toggleProfileInputs() {
-        const selectedRole = roleSelect.value;
-        const allInputs = profileSection.querySelectorAll('input, select, textarea');
-
-        // Aktifkan semua field terlebih dahulu
-        allInputs.forEach(el => {
-            el.disabled = false;
-            el.classList.remove('cursor-not-allowed', 'opacity-50');
-        });
-
-        profileSection.style.opacity = '1';
-
-        if (selectedRole === 'admin') {
-            // Nonaktifkan semua kolom profil
-            profileSection.style.opacity = '0.4';
-            allInputs.forEach(el => {
-                el.disabled = true;
-                el.classList.add('cursor-not-allowed');
-            });
-        }
-
-        if (selectedRole === 'educational_staff') {
-            // Nonaktifkan hanya kolom: NIM, Study Program, Major, Campus
-            const toDisable = [
-                'input[name="nim"]',
-                'select[name="study_program_id"]',
-                'select[name="major_id"]',
-                'select[name="campus"]'
-            ];
-
-            toDisable.forEach(selector => {
-                const el = document.querySelector(selector);
-                if (el) {
-                    el.disabled = true;
-                    el.classList.add('cursor-not-allowed', 'opacity-50');
-                }
-            });
-        }
-    }
-
-    roleSelect.addEventListener('change', toggleProfileInputs);
-    window.addEventListener('DOMContentLoaded', toggleProfileInputs);
-</script>
-
+    </script>
 
 </body>
 

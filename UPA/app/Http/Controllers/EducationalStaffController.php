@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\Jurusan;
 // use Illuminate\Http\Request;
 use App\Models\m_user;
 use App\Models\StudyProgram;
@@ -24,7 +25,7 @@ class EducationalStaffController extends Controller
     public function create()
     {
         $programs = StudyProgram::all();
-        $majors = Major::all();
+        $majors = Jurusan::all();
         return view('educational-staff.create', compact('programs', 'majors'));
     }
 
