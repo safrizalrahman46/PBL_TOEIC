@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h4>Data Pengumuman</h4>
-    <a href="{{ route('announcement.create') }}" class="btn btn-success">+ Tambah Pengumuman</a>
+    <h4>Data announcement</h4>
+    <a href="{{ route('announcement.create') }}" class="btn btn-success">+ Tambah announcement</a>
 </div>
 
 @if(session('success'))
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($pengumuman as $index => $item)
+            @foreach ($announcement as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->judul }}</td>
@@ -31,8 +31,8 @@
                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('Y-m-d') }}</td>
                 <td>{{ $item->creator->nama ?? 'Tidak diketahui' }}</td>
                 <td>
-                    <a href="{{ route('admin.pengumuman.edit', $item->pengumuman_id) }}" class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></a>
-                    <form action="{{ route('admin.pengumuman.destroy', $item->pengumuman_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus pengumuman ini?')">
+                    <a href="{{ route('admin.announcement.edit', $item->announcement_id) }}" class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></a>
+                    <form action="{{ route('admin.announcement.destroy', $item->announcement_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus announcement ini?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-light"><i class="bi bi-trash"></i></button>

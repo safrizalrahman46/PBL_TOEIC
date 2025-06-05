@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h4>Add Announcement</h4>
+<h4>Add pengumuman</h4>
 
 <form action="{{ route('announcement.store') }}" method="POST">
     @csrf

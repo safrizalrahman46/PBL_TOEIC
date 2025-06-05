@@ -25,10 +25,6 @@ use App\Http\Controllers\StudentUserController;
 
 use App\Http\Controllers\ProfileController;
 
-
-
-
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -105,15 +101,19 @@ Route::prefix('students')->group(function () {
     Route::delete('/{id}', [StudentUserController::class, 'destroy'])->name('students.destroy');
 });
 
-Route::prefix('admin/pengumuman')->name('admin.pengumuman.')->group(function () {
-    Route::get('/', [AnnouncementController::class, 'index'])->name('index');
-    Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
-    Route::post('/', [AnnouncementController::class, 'store'])->name('store');
-    Route::get('/{announcement}', [AnnouncementController::class, 'show'])->name('show');
-    Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('edit');
-    Route::put('/{announcement}', [AnnouncementController::class, 'update'])->name('update');
-    Route::delete('/{announcement}', [AnnouncementController::class, 'destroy'])->name('destroy');
-});
+// Route::middleware(['auth'])->group(function () { // Uncomment this line
+    Route::prefix('announcement')->name('announcement.')->group(function () {
+        Route::get('/', [AnnouncementController::class, 'index'])->name('index');
+        Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
+        Route::post('/', [AnnouncementController::class, 'store'])->name('store');
+        Route::get('/{announcement}', [AnnouncementController::class, 'show'])->name('show');
+        Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('edit');
+        Route::put('/{announcement}', [AnnouncementController::class, 'update'])->name('update');
+        Route::delete('/{announcement}', [AnnouncementController::class, 'destroy'])->name('destroy');
+    });
+// });
+
+
 
 
 // Index (list semua mahasiswa)

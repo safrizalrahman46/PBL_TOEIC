@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PengumumanModel;
+use App\Models\announcementModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,13 +10,13 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
-        $pengumuman = PengumumanModel::with('creator')->latest('tanggal')->get();
-        return view('admin.pengumuman.index', compact('pengumuman'));
+        $announcement = announcementModel::with('creator')->latest('tanggal')->get();
+        return view('announcement.index', compact('announcement'));
     }
 
     public function create()
     {
-        return view('pengumuman.create');
+        return view('announcement.create');
     }
 
     public function store(Request $request)
@@ -27,20 +27,27 @@ class AnnouncementController extends Controller
             'tanggal' => 'required|date',
         ]);
 
-        PengumumanModel::create([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
-            'tanggal' => $request->tanggal,
-            'created_by' => Auth::id(), // pastikan user login
-        ]);
+        if (auth()->check()) {
+            // If the user is authenticated, proceed to store the announcement
+            announcementModel::create([
+                'judul' => $request->judul,
+                'isi' => $request->isi,
+                'tanggal' => $request->tanggal,
+                'created_by' => Auth::id(),
+            ]);
+        } else {
+            // Handle the case where the user is not authenticated
+            return redirect()->route('login')->with('error', 'You must be logged in to create an announcement.');
+        }
 
-        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dibuat.');
+        return redirect()->route('announcement.index')->with('success', 'announcement berhasil dibuat.');
     }
+
 
     public function edit($id)
     {
-        $pengumuman = PengumumanModel::findOrFail($id);
-        return view('pengumuman.edit', compact('pengumuman'));
+        $announcement = announcementModel::findOrFail($id);
+        return view('announcement.edit', compact('announcement'));
     }
 
     public function update(Request $request, $id)
@@ -51,19 +58,19 @@ class AnnouncementController extends Controller
             'tanggal' => 'required|date',
         ]);
 
-        $pengumuman = PengumumanModel::findOrFail($id);
-        $pengumuman->update([
+        $announcement = announcementModel::findOrFail($id);
+        $announcement->update([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'tanggal' => $request->tanggal,
         ]);
 
-        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui.');
+        return redirect()->route('announcement.index')->with('success', 'announcement berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        PengumumanModel::findOrFail($id)->delete();
-        return back()->with('success', 'Pengumuman berhasil dihapus.');
+        announcementModel::findOrFail($id)->delete();
+        return back()->with('success', 'announcement berhasil dihapus.');
     }
 }

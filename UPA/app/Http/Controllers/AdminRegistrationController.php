@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use App\Models\m_user;
 use App\Models\StudyProgram;
 use App\Models\Major;
@@ -36,7 +37,7 @@ class AdminRegistrationController extends Controller
     {
         return view('admin.student-register', [
             'studyPrograms' => StudyProgram::all(),
-            'majors' => Major::all(),
+            'majors' => Jurusan::all(),
         ]);
     }
 

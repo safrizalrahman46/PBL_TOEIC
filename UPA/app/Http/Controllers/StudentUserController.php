@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\StudyProgram;
@@ -12,14 +13,14 @@ class StudentUserController extends Controller
 {
     public function index()
     {
-        $students = User::where('role_name', 'student')->with(['studyProgram', 'major'])->get();
+        $students = User::where('role', 'student')->with(['jurusan'])->get();
         return view('students.index', compact('students'));
     }
 
     public function create()
     {
         $studyPrograms = StudyProgram::all();
-        $majors = Major::all();
+        $majors = Jurusan::all();
         return view('students.create', compact('studyPrograms', 'majors'));
     }
 

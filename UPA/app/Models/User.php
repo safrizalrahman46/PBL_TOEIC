@@ -43,4 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail // If email verifi
     {
         return $this->belongsTo(Jurusan::class, 'jurusan_id');
     }
+
+    public function announcements()
+    {
+        return $this->hasMany(announcementModel::class, 'created_by');
+    }
 }
