@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use App\Models\Major;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class MajorController extends Controller
 {
     public function index()
     {
-        $majors = Major::all();
+        $majors = Jurusan::all();
         return view('majors.index', compact('majors'));
     }
 
@@ -24,23 +25,23 @@ class MajorController extends Controller
             'name' => 'required|string|max:255',
             'code' => 'nullable|string|max:50',
         ]);
-        Major::create($request->only('name'));
+        Jurusan::create($request->only('name'));
         return redirect()->route('majors.index')->with('success', 'Major created successfully.');
     }
 
-    public function edit(Major $major)
+    public function edit(Jurusan $major)
     {
         return view('majors.edit', compact('major'));
     }
 
-    public function update(Request $request, Major $major)
+    public function update(Request $request, Jurusan $major)
     {
         $request->validate(['name' => 'required|string|max:255']);
         $major->update($request->only('name'));
         return redirect()->route('majors.index')->with('success', 'Major updated successfully.');
     }
 
-    public function destroy(Major $major)
+    public function destroy(Jurusan $major)
     {
         $major->delete();
         return redirect()->route('majors.index')->with('success', 'Major deleted.');

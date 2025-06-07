@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<h4>Add pengumuman</h4>
+<h4>Add Pengumuman</h4>
 
 <form action="{{ route('announcement.store') }}" method="POST">
     @csrf
-    @include('announcement.form')
+    @include('announcement.form')  <!-- Menggunakan form umum -->
     <button type="submit" class="btn btn-primary">Save</button>
     <a href="{{ route('announcement.index') }}" class="btn btn-secondary">Back</a>
 </form>
@@ -14,7 +14,7 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const typeSelect = document.getElementById('type');
+    const typeSelect = document.getElementById('type'); // Menambahkan ID 'type'
     const eventDate = document.getElementById('event_date');
     const pickupCert = document.getElementById('pickup_certificate');
 

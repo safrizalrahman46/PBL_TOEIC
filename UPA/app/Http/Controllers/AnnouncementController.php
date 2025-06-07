@@ -3,45 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\announcementModel;
+use App\Models\ToeicRegistration;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AnnouncementController extends Controller
 {
+    // // Konstruktor untuk menambahkan middleware 'auth'
+    // public function __construct()
+    // {
+    //     $this->middleware('auth'); // Hanya pengguna yang terautentikasi yang bisa mengakses halaman ini
+    // }
+
     public function index()
     {
+        // if (!auth()->check()) {
+        //     return redirect()->route('login'); // Pastikan untuk mengarahkan pengguna yang belum login ke halaman login
+        // }
+
         $announcement = announcementModel::with('creator')->latest('tanggal')->get();
         return view('announcement.index', compact('announcement'));
     }
 
+
     public function create()
     {
-        return view('announcement.create');
+        // Mengambil semua pengguna untuk dropdown
+        $users = User::all(); // Ambil semua data pengguna dari tabel users
+
+        // Mengirim data $users ke view
+        return view('announcement.create', compact('users'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|max:150',
-            'isi' => 'required',
+        // Validasi data
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
             'tanggal' => 'required|date',
+            'user_id' => 'required|exists:users,id', // Validasi untuk user_id
         ]);
 
-        if (auth()->check()) {
-            // If the user is authenticated, proceed to store the announcement
-            announcementModel::create([
-                'judul' => $request->judul,
-                'isi' => $request->isi,
-                'tanggal' => $request->tanggal,
-                'created_by' => Auth::id(),
-            ]);
-        } else {
-            // Handle the case where the user is not authenticated
-            return redirect()->route('login')->with('error', 'You must be logged in to create an announcement.');
-        }
+        // Menyimpan data pengumuman
+        $pengumuman = new announcementModel();
+        $pengumuman->judul = $validated['judul'];
+        $pengumuman->isi = $validated['isi'];
+        $pengumuman->tanggal = $validated['tanggal'];
+        $pengumuman->user_id = $validated['user_id']; // Menyimpan user_id
+        $pengumuman->created_by = auth()->user()->id; // Mengatur siapa yang membuat
+        $pengumuman->save();
 
-        return redirect()->route('announcement.index')->with('success', 'announcement berhasil dibuat.');
+        // Redirect ke daftar pengumuman
+        return redirect()->route('announcement.index')->with('success', 'Pengumuman berhasil disimpan!');
     }
+
 
 
     public function edit($id)
@@ -65,12 +83,12 @@ class AnnouncementController extends Controller
             'tanggal' => $request->tanggal,
         ]);
 
-        return redirect()->route('announcement.index')->with('success', 'announcement berhasil diperbarui.');
+        return redirect()->route('announcement.index')->with('success', 'Announcement berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         announcementModel::findOrFail($id)->delete();
-        return back()->with('success', 'announcement berhasil dihapus.');
+        return back()->with('success', 'Announcement berhasil dihapus.');
     }
 }

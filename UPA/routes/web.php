@@ -59,7 +59,6 @@ Route::get('/forgot-password', function () {
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])
     ->name('password.email');
 
-
 Route::get('/reset-password/{token}', function ($token) {
     return view('auth.reset-password', ['token' => $token]);
 })->name('password.reset');
@@ -101,7 +100,7 @@ Route::prefix('students')->group(function () {
     Route::delete('/{id}', [StudentUserController::class, 'destroy'])->name('students.destroy');
 });
 
-// Route::middleware(['auth'])->group(function () { // Uncomment this line
+// Route::middleware('auth')->prefix('announcement')->name('announcement.')->group(function () { // Uncomment this line
     Route::prefix('announcement')->name('announcement.')->group(function () {
         Route::get('/', [AnnouncementController::class, 'index'])->name('index');
         Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
@@ -112,8 +111,6 @@ Route::prefix('students')->group(function () {
         Route::delete('/{announcement}', [AnnouncementController::class, 'destroy'])->name('destroy');
     });
 // });
-
-
 
 
 // Index (list semua mahasiswa)
@@ -160,4 +157,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/change-password', [ProfileController::class, 'editPassword'])->name('profile.change-password');
     Route::put('/profile/update-password', action: [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+        
 });
