@@ -17,6 +17,7 @@ use App\Http\Controllers\FreeToeicController;
 use App\Http\Controllers\AdminRegistrationController;
 use App\Http\Controllers\EducationalStaffController;
 use App\Http\Controllers\EducationalStaffRegistrationController;
+use App\Http\Controllers\freeRegistController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\ToeicScoreController;
@@ -47,8 +48,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/profile', fn() => view('profile'));
 
-Route::get('/free-toeic/register', fn() => view('FreeRegister'))->name('free-toeic.form');
-Route::post('/free-toeic/register', [FreeToeicController::class, 'register'])->name('free-toeic.register');
+// Route::get('/free-toeic/register', fn() => view('FreeRegister'))->name('free-toeic.form');
+// Route::post('/free-toeic/register', [FreeToeicController::class, 'register'])->name('free-toeic.register');
 
 Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
 Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
@@ -95,6 +96,16 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 // // Hapus pengumuman
 // Route::delete('announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
+Route::prefix('freeRegist')->name('freeRegist.')->middleware('auth')->group(function () {
+    Route::get('/', [freeRegistController::class, 'index'])->name('index');
+    Route::get('/create', [freeRegistController::class, 'create'])->name('create');
+    Route::post('/', [freeRegistController::class, 'store'])->name('store');
+    Route::get('/{id}', [freeRegistController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [freeRegistController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [freeRegistController::class, 'update'])->name('update');
+    Route::delete('/{id}', [freeRegistController::class, 'destroy'])->name('destroy');
+});
+
 
 Route::prefix('students')->name('students.')->group(function () {
     Route::get('/', [StudentUserController::class, 'index'])->name('index');
@@ -159,16 +170,16 @@ Route::prefix('study-programs')->name('study-programs.')->group(function () {
     Route::delete('/{id}', [StudyProgramController::class, 'destroy'])->name('destroy');
 });
 
-    Route::get('/educational-staff', [EducationalStaffController::class, 'index'])->name('educational-staff.index');
-    Route::get('/educational-staff/create', [EducationalStaffController::class, 'create'])->name('educational-staff.create');
-    Route::post('/educational-staff', [EducationalStaffController::class, 'store'])->name('educational-staff.store');
-    Route::get('/educational-staff/{id}', [EducationalStaffController::class, 'show'])->name('educational-staff.show');
-    Route::get('/educational-staff/{id}/edit', [EducationalStaffController::class, 'edit'])->name('educational-staff.edit');
-    Route::put('/educational-staff/{id}', [EducationalStaffController::class, 'update'])->name('educational-staff.update');
-    Route::delete('/educational-staff/{id}', [EducationalStaffController::class, 'destroy'])->name('educational-staff.destroy');
+Route::get('/educational-staff', [EducationalStaffController::class, 'index'])->name('educational-staff.index');
+Route::get('/educational-staff/create', [EducationalStaffController::class, 'create'])->name('educational-staff.create');
+Route::post('/educational-staff', [EducationalStaffController::class, 'store'])->name('educational-staff.store');
+Route::get('/educational-staff/{id}', [EducationalStaffController::class, 'show'])->name('educational-staff.show');
+Route::get('/educational-staff/{id}/edit', [EducationalStaffController::class, 'edit'])->name('educational-staff.edit');
+Route::put('/educational-staff/{id}', [EducationalStaffController::class, 'update'])->name('educational-staff.update');
+Route::delete('/educational-staff/{id}', [EducationalStaffController::class, 'destroy'])->name('educational-staff.destroy');
 
 
-    Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
+Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
 Route::get('/toeic-scores/create', [ToeicScoreController::class, 'create'])->name('toeic-scores.create');
 Route::post('/toeic-scores', [ToeicScoreController::class, 'store'])->name('toeic-scores.store');
 Route::get('/toeic-scores/{id}', [ToeicScoreController::class, 'show'])->name('toeic-scores.show');
