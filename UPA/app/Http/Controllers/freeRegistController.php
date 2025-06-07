@@ -8,7 +8,6 @@ use App\Models\ToeicRegistration;
 class FreeRegistController extends Controller
 {
     // Show the index page if registration exists, or redirect to create if not
-
     public function index()
     {
         // Ensure the user is authenticated
@@ -39,7 +38,6 @@ class FreeRegistController extends Controller
         }
     }
 
-
     // Show the create registration form
     public function create()
     {
@@ -63,16 +61,36 @@ class FreeRegistController extends Controller
         $certificate_path = $request->file('certificate_path') ? $request->file('certificate_path')->store('certificates') : null;
         $ktp_path = $request->file('ktp_path') ? $request->file('ktp_path')->store('ktps') : null;
 
-        // Create a new registration record for the user
-        ToeicRegistration::create([
-            'nim' => $nim,
-            'status' => $validated['status'],
-            'registration_date' => now(),
-            'certificate_path' => $certificate_path,
-            'ktp_path' => $ktp_path,
-        ]);
+        // Check if the user has already registered
+        $existingRegistration = ToeicRegistration::where('nim', $nim)->first();
 
-        // Redirect after successfully storing the registration
-        return redirect()->route('freeRegist.index')->with('success', 'Registration successful!');
+        if ($existingRegistration) {
+            // Update the existing registration for the second registration
+            $existingRegistration->status = $validated['status'];
+            $existingRegistration->registration_date = now();
+            if ($certificate_path) {
+                $existingRegistration->certificate_path = $certificate_path;
+            }
+            if ($ktp_path) {
+                $existingRegistration->ktp_path = $ktp_path;
+            }
+            $existingRegistration->is_second_registration = true; // Mark as second registration
+            $existingRegistration->save();
+
+            // Redirect after successfully updating the registration
+            return redirect()->route('freeRegist.index')->with('success', 'Second registration updated successfully!');
+        } else {
+            // Create a new registration record for the user
+            ToeicRegistration::create([
+                'nim' => $nim,
+                'status' => $validated['status'],
+                'registration_date' => now(),
+                'certificate_path' => $certificate_path,
+                'ktp_path' => $ktp_path,
+            ]);
+
+            // Redirect after successfully storing the registration
+            return redirect()->route('freeRegist.index')->with('success', 'Registration successful!');
+        }
     }
 }
