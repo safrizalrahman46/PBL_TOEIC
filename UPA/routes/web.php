@@ -100,7 +100,9 @@ Route::prefix('freeRegist')->name('freeRegist.')->middleware('auth')->group(func
     Route::get('/', [freeRegistController::class, 'index'])->name('index');
     Route::get('/create', [freeRegistController::class, 'create'])->name('create');
     Route::post('/', [freeRegistController::class, 'store'])->name('store');
+    Route::post('/secondRegistration/{id}', [freeRegistController::class, 'createSecondRegistration'])->name('secondRegistration');
     Route::get('/{id}', [freeRegistController::class, 'show'])->name('show');
+    Route::get('/{id}/ktp', [freeRegistController::class, 'showKtp'])->name('showKtp');
     Route::get('/{id}/edit', [freeRegistController::class, 'edit'])->name('edit');
     Route::put('/{id}', [freeRegistController::class, 'update'])->name('update');
     Route::delete('/{id}', [freeRegistController::class, 'destroy'])->name('destroy');
