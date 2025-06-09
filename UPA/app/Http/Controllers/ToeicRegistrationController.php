@@ -28,9 +28,9 @@ class ToeicRegistrationController extends Controller
 
         $registration = ToeicRegistration::create([
             'nim' => $request->nim,
-            'status' => 'paid',
+            'status' => 'pending',
             'registration_date' => Carbon::now()->toDateString(),
-            'score' => null,
+
             'certificate_path' => null,
         ]);
 

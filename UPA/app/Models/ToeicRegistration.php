@@ -30,20 +30,5 @@ class ToeicRegistration extends Model
     protected $casts = [
         'registration_date' => 'date',  // Automatically cast registration_date to a Carbon instance
     ];
-    // Menambahkan enum secara manual untuk status
-    const STATUS_FREE = 'free';
-    const STATUS_PAID = 'paid';
-
-    // Menggunakan accessor untuk mendapatkan status dalam format lebih friendly
-    public function getStatusLabelAttribute()
-    {
-        switch ($this->status) {
-            case self::STATUS_FREE:
-                return 'Free Registration';
-            case self::STATUS_PAID:
-                return 'Paid Registration';
-            default:
-                return 'Unknown';
-        }
-    }
+ 
 }
