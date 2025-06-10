@@ -116,7 +116,7 @@ Route::prefix('students')->name('students.')->group(function () {
     Route::delete('/{id}', [StudentUserController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('announcement')->group(function () {
+Route::middleware(['auth'])->prefix('announcement')->group(function () {
     Route::get('/', [AnnouncementController::class, 'index'])->name('announcement.index');
     Route::get('/create', [AnnouncementController::class, 'create'])->name('announcement.create');
     Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');

@@ -3,9 +3,16 @@
 @section('content')
 <h4>Add Announcement</h4>
 
-<form action="{{ route('announcement.store') }}" method="POST">
+<form action="{{ route('announcement.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @include('announcement.form')
+    @include('announcement.form') <!-- Include form fields -->
+    
+    <!-- File upload for the image (annopath) -->
+    <div class="mb-3">
+        <label for="annopath">Announcement Image</label>
+        <input type="file" name="annopath" class="form-control" accept="image/*">
+    </div>
+
     <button type="submit" class="btn btn-primary">Save</button>
     <a href="{{ route('announcement.index') }}" class="btn btn-secondary">Back</a>
 </form>

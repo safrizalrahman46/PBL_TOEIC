@@ -19,6 +19,7 @@ class Announcement extends Model
         'target_audience',
         'event_date',
         'pickup_certificate',
+        'created_by',
     ];
 
     protected $casts = [
