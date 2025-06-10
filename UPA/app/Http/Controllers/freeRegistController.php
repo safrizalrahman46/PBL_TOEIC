@@ -75,7 +75,6 @@ class FreeRegistController extends Controller
         $status = $validated['status'] ?? 'pending';  // Jika tidak ada status yang dikirim, maka default 'pending'
 
         // Handle file uploads
-        $certificate_path = $request->file('certificate_path') ? $request->file('certificate_path')->store('certificates') : null;
         $ktp_path = $request->file('ktp_path') ? $request->file('ktp_path')->store('public/ktps') : null;
 
         // Cek apakah pengguna sudah terdaftar
@@ -100,7 +99,6 @@ class FreeRegistController extends Controller
                 'nim' => $nim,
                 'status' => $status, // Menggunakan status yang telah diatur
                 'registration_date' => now(),
-                'certificate_path' => $certificate_path,
                 'ktp_path' => $ktp_path,
             ]);
 
@@ -188,12 +186,12 @@ class FreeRegistController extends Controller
                 $status = $validated['status'] ?? 'pending';
 
                 // Handle file uploads
-                $certificate_path = $request->file('certificate_path') ? $request->file('certificate_path')->store('certificates') : $registration->certificate_path;
+                // $certificate_path = $request->file('certificate_path') ? $request->file('certificate_path')->store('certificates') : $registration->certificate_path;
                 $ktp_path = $request->file('ktp_path') ? $request->file('ktp_path')->store('public/ktps') : $registration->ktp_path;
 
                 // Update the registration with the new data
                 $registration->status = $status;
-                $registration->certificate_path = $certificate_path;
+                // $registration->certificate_path = $certificate_path;
                 $registration->ktp_path = $ktp_path;
                 $registration->registration_date = now();
                 $registration->save();

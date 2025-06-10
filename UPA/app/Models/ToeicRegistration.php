@@ -18,6 +18,7 @@ class ToeicRegistration extends Model
         'registration_date',
         'score',
         'certificate_path', // Kolom yang diizinkan diisi
+        'user_ref_id',
     ];
 
     // Menyembunyikan kolom tertentu
@@ -30,5 +31,11 @@ class ToeicRegistration extends Model
     protected $casts = [
         'registration_date' => 'date',  // Automatically cast registration_date to a Carbon instance
     ];
- 
+    
+    // Define the relationship with the User model
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nim', 'nim');
+    }
+
 }

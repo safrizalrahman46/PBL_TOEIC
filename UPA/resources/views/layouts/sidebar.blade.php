@@ -37,13 +37,13 @@
     <ul class="nav nav-pills flex-column mb-3">
         {{--  <li class="nav-item"><a href="/admin/student-register" class="nav-link text-dark"><i
                     class="bi bi-pencil-square me-2"></i> Free Student Registrations</a></li>  --}}
-         <li class="nav-item"><a href="/students" class="nav-link text-dark"><i
-                    class="bi bi-pencil-square me-2"></i> Free Student Registrations</a></li>
-         <li class="nav-item"><a href="/freeRegist" class="nav-link text-dark"><i
-                    class="bi bi-pencil-square me-2"></i> Free Student verification</a></li>
-        <li class="nav-item"><a href="/toeic-registration/index" class="nav-link text-dark"><i
+        <li class="nav-item"><a href="/students" class="nav-link text-dark"><i class="bi bi-pencil-square me-2"></i>
+                Free Student Registrations</a></li>
+        <li class="nav-item"><a href="/freeRegist" class="nav-link text-dark"><i class="bi bi-pencil-square me-2"></i>
+                Student verification</a></li>
+        <li class="nav-item"><a href="{{ route('adminRegist.index') }}" class="nav-link text-dark"><i
                     class="bi bi-pencil-square me-2"></i> Registrations Validation</a></li>
-        <li class="nav-item"><a href="/educational-staff-registration" class="nav-link text-dark"><i
+        <li class="nav-item"><a href="/toeic-registration/index" class="nav-link text-dark"><i
                     class="bi bi-pencil-square me-2"></i> Educational Staff Registrations</a></li>
         <li class="nav-item"><a href="/toeic-scores" class="nav-link text-dark"><i
                     class="bi bi-clipboard-data me-2"></i> Scores</a></li>

@@ -26,10 +26,7 @@ use App\Http\Controllers\StudentUserController;
 // use App\Http\Controllers\EducationalStaffController;
 
 use App\Http\Controllers\ProfileController;
-
-
-
-
+use App\Models\ToeicRegistration;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -190,10 +187,10 @@ Route::post('/toeic-scores/{id}', [ToeicScoreController::class, 'update'])->name
 Route::delete('/toeic-scores/{id}', [ToeicScoreController::class, 'destroy'])->name('toeic-scores.destroy');
 
 
-Route::get('/toeic-registration/index', [ToeicRegistrationController::class, 'index'])->name('toeic-registration.index');
-Route::get('/toeic-registration', [ToeicRegistrationController::class, 'create'])->name('toeic-registration.create');
-Route::post('/toeic-registration', [ToeicRegistrationController::class, 'store'])->name('toeic-registration.store');
-Route::get('/toeic-registration/success/{id}', [ToeicRegistrationController::class, 'success'])->name('toeic-registration.success');
+Route::get('/toeic-registration/index', [ToeicRegistration::class, 'index'])->name('toeic-registration.index');
+Route::get('/toeic-registration', [ToeicRegistration::class, 'create'])->name('toeic-registration.create');
+Route::post('/toeic-registration', [ToeicRegistration::class, 'store'])->name('toeic-registration.store');
+Route::get('/toeic-registration/success/{id}', [ToeicRegistration::class, 'success'])->name('toeic-registration.success');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -203,13 +200,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update-password', action: [ProfileController::class, 'updatePassword'])->name('profile.update-password');
 });
 
-Route::prefix('educational-staff-registration')->group(function () {
-    Route::get('/', [EducationalStaffRegistrationController::class, 'index'])->name('educational-staff-registration.index');
-    Route::get('/create', [EducationalStaffRegistrationController::class, 'create'])->name('educational-staff-registration.create');
-    Route::post('/', [EducationalStaffRegistrationController::class, 'store'])->name('educational-staff-registration.store');
-    Route::get('/{id}/success', [EducationalStaffRegistrationController::class, 'success'])->name('educational-staff-registration.success');
-    Route::get('/{id}', [EducationalStaffRegistrationController::class, 'show'])->name('educational-staff-registration.show');
-    Route::get('/{id}/edit', [EducationalStaffRegistrationController::class, 'edit'])->name('educational-staff-registration.edit');
-    Route::put('/{id}', [EducationalStaffRegistrationController::class, 'update'])->name('educational-staff-registration.update');
-    Route::delete('/{id}', [EducationalStaffRegistrationController::class, 'destroy'])->name('educational-staff-registration.destroy');
+Route::prefix('adminRegist')->name('adminRegist.')->group(function () {
+    Route::get('/', [AdminRegistrationController::class, 'index'])->name('index');
+    Route::get('/create', [AdminRegistrationController::class, 'create'])->name('create');
+    Route::post('/', [AdminRegistrationController::class, 'store'])->name('store');
+    Route::get('/{id}/success', [AdminRegistrationController::class, 'success'])->name('success');
+    Route::get('/{id}', [AdminRegistrationController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [AdminRegistrationController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [AdminRegistrationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [AdminRegistrationController::class, 'destroy'])->name('destroy');
 });

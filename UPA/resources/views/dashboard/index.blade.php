@@ -64,8 +64,8 @@
                     <td>{{ \Carbon\Carbon::parse($reg->registration_date)->format('d/m/Y') }}</td>
                     <td>{{ $reg->score ?? '-' }}</td>
                     <td>
-                        @if($reg->certificate_path)
-                            <a href="{{ asset('storage/' . $reg->certificate_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                        @if($reg->ktp_path)
+                            <a href="{{ asset('storage/' . $reg->ktp_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
                         @else
                             <span class="text-muted">Not available</span>
                         @endif
