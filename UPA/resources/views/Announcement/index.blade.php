@@ -3,7 +3,10 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h4>Announcements</h4>
-    <a href="{{ route('announcement.create') }}" class="btn btn-success">+ Add Announcement</a>
+
+    @if(auth()->check() && auth()->user()->role_name === 'admin')
+        <a href="{{ route('announcement.create') }}" class="btn btn-success">+ Add Announcement</a>
+    @endif
 </div>
 
 @if(session('success'))
@@ -16,11 +19,9 @@
         <div class="card h-100 shadow-sm">
             <!-- Display Announcement Image (annopath) -->
             @if ($a->annopath && Storage::disk('public')->exists($a->annopath))
-                <!-- Show the uploaded image if it exists -->
                 <img src="{{ Storage::url($a->annopath) }}" class="card-img-top" alt="Announcement Image" style="height: 180px; object-fit: cover;">
             @else
-                <!-- Fallback to a default image if no image is uploaded -->
-                <img src="{{ Storage::url($a->annopath) }}" class="card-img-top" alt="Default Image" style="height: 180px; object-fit: cover;">
+                <img src="https://via.placeholder.com/300x180?text=No+Image" class="card-img-top" alt="Default Image" style="height: 180px; object-fit: cover;">
             @endif
 
             <div class="card-body d-flex flex-column">
@@ -38,6 +39,8 @@
                         <li><strong>Pickup Cert.:</strong> {{ $a->pickup_certificate->format('Y-m-d') }}</li>
                     @endif
                 </ul>
+
+                @if(auth()->check() && auth()->user()->role_name === 'admin')
                 <div class="mt-auto d-flex justify-content-between">
                     <a href="{{ route('announcement.edit', $a->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
                     <form action="{{ route('announcement.destroy', $a->id) }}" method="POST" onsubmit="return confirm('Delete this?')">
@@ -45,6 +48,7 @@
                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
     </div>

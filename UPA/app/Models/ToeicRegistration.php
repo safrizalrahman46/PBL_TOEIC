@@ -31,7 +31,7 @@ class ToeicRegistration extends Model
     protected $casts = [
         'registration_date' => 'date',  // Automatically cast registration_date to a Carbon instance
     ];
-    
+
     // Define the relationship with the User model
     public function user()
     {

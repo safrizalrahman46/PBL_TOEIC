@@ -20,22 +20,22 @@ class ToeicRegistrationController extends Controller
         return view('toeic_registration.create');
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nim' => 'required|string|max:20',
-        ]);
+ public function store(Request $request)
+{
+    $validated = $request->validate([
+        'nim' => 'required|string|max:20',
+        'registration_date' => 'required|date',
+    ]);
 
-        $registration = ToeicRegistration::create([
-            'nim' => $request->nim,
-            'status' => 'pending',
-            'registration_date' => Carbon::now()->toDateString(),
+    $registration = ToeicRegistration::create([
+        'nim' => $validated['nim'],
+        'registration_date' => $validated['registration_date'],
+        'status' => 'pending',
+        'is_second_registration' => false,
+    ]);
 
-            'certificate_path' => null,
-        ]);
-
-        return redirect()->route('toeic-registration.success', $registration->id);
-    }
+    return redirect()->route('toeic-registration.success', $registration->id);
+}
 
     public function success($id)
     {

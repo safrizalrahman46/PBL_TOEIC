@@ -103,4 +103,12 @@ class AnnouncementController extends Controller
         $announcement->delete();
         return back()->with('success', 'Announcement deleted.');
     }
+
+
+    public function show($id)
+{
+    $announcement = \App\Models\Announcement::findOrFail($id);
+
+    return view('announcement.show', compact('announcement'));
+}
 }
