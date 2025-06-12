@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.toeic-scores.index') }}" class="nav-link text-dark {{ request()->is('admin/toeic-scores*') ? 'active' : '' }}">
+                    <a href="{{ route('toeic-scores.index') }}" class="nav-link text-dark {{ request()->is('toeic-scores*') ? 'active' : '' }}">
                         <i class="bi bi-clipboard-data me-2"></i> Scores
                     </a>
                 </li>
