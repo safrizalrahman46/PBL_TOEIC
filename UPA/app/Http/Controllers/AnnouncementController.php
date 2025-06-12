@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
@@ -35,7 +36,7 @@ class AnnouncementController extends Controller
         ]);
 
         // Handle file uploads (annopath) - If the file exists, store it, else keep it null
-        $annopath = $request->file('annopath') ? $request->file('annopath')->store('public/annopaths') : null;
+        $annopath = $request->file('annopath') ? $request->file('annopath')->store('annopaths', 'public') : null;
 
         // Create the announcement and associate the user who created it
         $announcement = new Announcement($validated);
@@ -47,9 +48,6 @@ class AnnouncementController extends Controller
 
         return redirect()->route('announcement.index')->with('success', 'Announcement created successfully.');
     }
-
-
-
 
     public function edit($id)
     {
@@ -81,7 +79,7 @@ class AnnouncementController extends Controller
             }
 
             // Store the new image
-            $announcement->annopath = $request->file('annopath')->store('announcement_images', 'public/annopaths');
+            $announcement->annopath = $request->file('annopath')->store('annopaths', 'public');
         }
 
         // Update the announcement with new data
@@ -104,11 +102,9 @@ class AnnouncementController extends Controller
         return back()->with('success', 'Announcement deleted.');
     }
 
-
     public function show($id)
-{
-    $announcement = \App\Models\Announcement::findOrFail($id);
-
-    return view('announcement.show', compact('announcement'));
-}
+    {
+        $announcement = Announcement::findOrFail($id);
+        return view('announcement.show', compact('announcement'));
+    }
 }
