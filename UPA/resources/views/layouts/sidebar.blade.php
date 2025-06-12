@@ -79,7 +79,7 @@
         </ul>
     @endif
 
-    @if(auth()->user()->role_name === 'educational_staff' || auth()->user()->role_name === 'admin')
+    @if(auth()->user()->role_name === 'educational_staff' )
         <!-- Educational Staff Section -->
         <small class="text-uppercase text-muted fw-bold mb-2 mt-3">Educational Staff</small>
         <ul class="nav nav-pills flex-column mb-3">
