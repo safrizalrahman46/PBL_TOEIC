@@ -6,7 +6,7 @@
 
     {{-- Hanya admin yang bisa unggah --}}
     @if(auth()->check() && auth()->user()->role_name === 'admin')
-        <a href="{{ route('admin.toeic-scores.create') }}" class="btn btn-primary mb-3">Unggah PDF</a>
+        <a href="{{ route('toeic-scores.create') }}" class="btn btn-primary mb-3">Unggah PDF</a>
     @endif
 
     @if(session('success'))
@@ -30,8 +30,8 @@
                     <td>{{ $score->created_at->format('d-m-Y H:i') }}</td>
                     <td>
                         @if(auth()->check() && auth()->user()->role_name === 'admin')
-                            <a href="{{ route('admin.toeic-scores.edit', $score->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('admin.toeic-scores.destroy', $score->id) }}" method="POST" style="display:inline">
+                            <a href="{{ route('toeic-scores.edit', $score->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('toeic-scores.destroy', $score->id) }}" method="POST" style="display:inline">
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-danger btn-sm">Hapus</button>

@@ -20,17 +20,21 @@ public function index()
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'pdf' => 'required|mimes:pdf|max:2048',
-        ]);
+{
+    $request->validate([
+        'pdf' => 'required|mimes:pdf|max:2048',
+        // 'score' => 'nullable|integer|min:0|max:990',
+    ]);
 
-        $path = $request->file('pdf')->store('toeic_pdfs', 'public');
+    $pdfPath = $request->file('pdf')->store('toeic_pdfs', 'public');
 
-        ToeicScore::create(['pdf' => $path]);
+    ToeicScore::create([
+        'pdf' => $pdfPath,
+        'user_id' => auth()->id(),
+    ]);
 
-        return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil diunggah.');
-    }
+    return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil diunggah.');
+}
 
     public function show($id)
     {

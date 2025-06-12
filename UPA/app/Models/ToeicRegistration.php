@@ -39,3 +39,4 @@ class ToeicRegistration extends Model
     }
 
 }
+;

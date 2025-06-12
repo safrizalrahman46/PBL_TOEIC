@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ToeicRegistration;
+use Illuminate\Support\Facades\Gate;
 
 class FreeRegistController extends Controller
 {
@@ -140,28 +141,18 @@ class FreeRegistController extends Controller
     }
 
     // Show the edit registration form
-    public function edit($id)
-    {
-        // Ensure the user is authenticated
-        if (Auth::check()) {
-            $user = Auth::user();
-            $nim = $user->nim;
+   public function edit($id)
 
-            // Check if the registration exists for the given ID and user NIM
-            $registration = ToeicRegistration::where('id', $id)->where('nim', $nim)->first();
+{
+    $registration = ToeicRegistration::findOrFail($id);
 
-            if ($registration) {
-                // Show the edit form with the current registration data
-                return view('freeregist.edit', compact('registration'));
-            } else {
-                // Redirect if registration does not exist
-                return redirect()->route('freeRegist.index')->with('error', 'Registration not found.');
-            }
-        } else {
-            // Redirect to login page if the user is not authenticated
-            return redirect()->route('login');
-        }
-    }
+    $result = Gate::inspect('update', $registration);
+    dd($result->allowed(), $result->message(), Auth::user()->nim, $registration->nim); // 🧠 Lihat hasil detailnya
+
+    $this->authorize('update', $registration);
+
+    return view('freeregist.edit', compact('registration'));
+}
 
     // Update the registration data
     public function update(Request $request, $id)
