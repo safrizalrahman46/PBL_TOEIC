@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ToeicRegistration;
+use Illuminate\Support\Facades\Log;
 
 class FreeRegistController extends Controller
 {
@@ -116,7 +117,7 @@ class FreeRegistController extends Controller
 
         return view('freeRegist.show', compact('registration'));
     }
-    
+
     // Method untuk memproses pendaftaran kedua kalinya
     public function createSecondRegistration(Request $request, $id)
     {
@@ -140,28 +141,111 @@ class FreeRegistController extends Controller
     }
 
     // Show the edit registration form
-    public function edit($id)
-    {
-        // Ensure the user is authenticated
-        if (Auth::check()) {
-            $user = Auth::user();
-            $nim = $user->nim;
+    // public function edit($id)
+    // {
+    //     // Ensure the user is authenticated
+    //     if (Auth::check()) {
+    //         $user = Auth::user();
+    //         $nim = $user->nim;
 
-            // Check if the registration exists for the given ID and user NIM
-            $registration = ToeicRegistration::where('id', $id)->where('nim', $nim)->first();
+    //         // Check if the registration exists for the given ID and user NIM
+    //         $registration = ToeicRegistration::where('id', $id)->where('nim', $nim)->first();
 
-            if ($registration) {
-                // Show the edit form with the current registration data
-                return view('freeregist.edit', compact('registration'));
-            } else {
-                // Redirect if registration does not exist
-                return redirect()->route('freeRegist.index')->with('error', 'Registration not found.');
-            }
-        } else {
-            // Redirect to login page if the user is not authenticated
-            return redirect()->route('login');
-        }
+    //         if ($registration) {
+    //             // Show the edit form with the current registration data
+    //             return view('freeregist.edit', compact('registration'));
+    //         } else {
+    //             // Redirect if registration does not exist
+    //             return redirect()->route('freeRegist.index')->with('error', 'Registration not found.');
+    //         }
+    //     } else {
+    //         // Redirect to login page if the user is not authenticated
+    //         return redirect()->route('login');
+    //     }
+    // }
+
+//     public function edit($id)
+// {
+//     // Ensure the user is authenticated
+//     if (!Auth::check()) {
+//         return redirect()->route('login')->with('error', 'Please login to access this page.');
+//     }
+
+//     $user = Auth::user();
+//     $nim = $user->nim;
+
+//     // Validate the ID parameter
+//     if (!is_numeric($id) || $id <= 0) {
+//         return redirect()->route('freeRegist.index')->with('error', 'Invalid registration ID.');
+//     }
+
+//     try {
+//         // Find the registration with proper authorization check
+//         $registration = ToeicRegistration::where('id', $id)
+//             ->where('nim', $nim)
+//             ->firstOrFail();
+
+//         // Additional check to ensure students can only edit their own registrations
+//         if ($user->role_name === 'student' && $registration->user_id != $user->id) {
+//             abort(403, 'You are not authorized to edit this registration.');
+//         }
+
+//         // Check registration status - prevent editing if already approved/rejected
+//         if (in_array($registration->status, ['approved', 'rejected'])) {
+//             return redirect()->route('freeRegist.show', $id)
+//                 ->with('warning', 'Cannot edit a registration that has been '.$registration->status.'.');
+//         }
+
+//         return view('freeregist.edit', compact('registration'));
+
+//     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+//         return redirect()->route('freeRegist.index')
+//             ->with('error', 'Registration not found or you do not have permission to edit it.');
+//     } catch (\Exception $e) {
+//         Log::error('Error accessing edit page: '.$e->getMessage());
+//         return redirect()->route('freeRegist.index')
+//             ->with('error', 'An error occurred while accessing the edit page.');
+//     }
+// }
+
+public function edit($id)
+{
+    // Ensure the user is authenticated
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'Please login to access this page.');
     }
+
+    $user = Auth::user();
+    $nim = $user->nim;
+
+    // Validate the ID parameter
+    if (!is_numeric($id) || $id <= 0) {
+        return redirect()->route('freeRegist.index')->with('error', 'Invalid registration ID.');
+    }
+
+    try {
+        // Find the registration with proper authorization check
+        $registration = ToeicRegistration::where('id', $id)
+            ->where('nim', $nim)
+            ->firstOrFail();
+
+        // Check registration status - prevent editing if already approved/rejected
+        if (in_array($registration->status, ['approved', 'rejected'])) {
+            return redirect()->route('freeRegist.show', $id)
+                ->with('warning', 'Cannot edit a registration that has been '.$registration->status.'.');
+        }
+
+        return view('freeregist.edit', compact('registration'));
+
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return redirect()->route('freeRegist.index')
+            ->with('error', 'Registration not found or you do not have permission to edit it.');
+    } catch (\Exception $e) {
+        Log::error('Error accessing edit page: '.$e->getMessage());
+        return redirect()->route('freeRegist.index')
+            ->with('error', 'An error occurred while accessing the edit page.');
+    }
+}
 
     // Update the registration data
     public function update(Request $request, $id)
