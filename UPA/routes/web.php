@@ -33,7 +33,7 @@ use App\Models\ToeicRegistration;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name(name: 'home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
@@ -97,9 +97,11 @@ Route::middleware(['auth', 'role:student'])->group(function () {
         Route::get('/{id}', [freeRegistController::class, 'show'])->name('show');
     });
 
-    Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
-    Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
+    // Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
+    // Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
 
+   Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
+    Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
         //  Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
 
              // TOEIC Scores - Student view only

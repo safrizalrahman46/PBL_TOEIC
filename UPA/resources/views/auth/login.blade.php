@@ -83,6 +83,8 @@
                     <span class="text-sm text-gray-400">Don’t have an account?</span>
                     <a href="{{ route('signup.index') }}" class="text-sm text-blue-600 hover:underline">Sign up</a>
                 </div>
+
+                
             </div>
         </div>
     </div>
