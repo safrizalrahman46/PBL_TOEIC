@@ -74,4 +74,12 @@ protected $fillable = [
     {
         return $this->belongsTo(Major::class);
     }
+
+    // App\Models\ToeicScore.php
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

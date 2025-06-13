@@ -103,7 +103,9 @@ Route::middleware(['auth', 'role:student'])->group(function () {
         //  Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
 
              // TOEIC Scores - Student view only
+    // Route::get('/toeic-scores', [ToeicScoreController::class, 'studentScores'])->name('student.toeic-scores.index');
     Route::get('/toeic-scores', [ToeicScoreController::class, 'studentScores'])->name('student.toeic-scores.index');
+
     // Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
     //     Route::prefix('toeic-scores')->name('toeic-scores.')->group(function () {
     //     Route::get('/', [ToeicScoreController::class, 'index'])->name('index');
@@ -231,7 +233,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/', [ToeicRegistrationController::class, 'store'])->name('toe-registration.store');
         Route::get('/success/{id}', [ToeicRegistrationController::class, 'success'])->name('toeic-registration.success');
     });
-    
+
 });
 
 Route::prefix('admin')->group(function () {
