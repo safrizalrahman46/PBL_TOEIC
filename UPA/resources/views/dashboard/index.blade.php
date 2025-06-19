@@ -10,7 +10,7 @@
         {{-- Welcome Banner --}}
         @include('components.welcome-banner', [
         'name' => Auth::user()->name,
-        'role' => Auth::user()->role,
+        'role' => Auth::user()->role_name,
         'progress' => 85
     ])
 
