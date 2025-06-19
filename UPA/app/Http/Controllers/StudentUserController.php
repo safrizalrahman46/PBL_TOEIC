@@ -25,60 +25,61 @@ class StudentUserController extends Controller
     }
 
     public function store(Request $request)
-    {
-        Log::info('Request ingin divalidasi');
-        dd($request->all());
-        $validated = $request->validate([
-            'username' => 'required|unique:users',
-            'password' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'role_name' => 'required|in:', // Isi sendiri bos
-            'nim' => 'required|max:20|string',
-            'name' => 'required|max:100|string',
-            'nik' => 'required',
-            'phone' => 'required',
-            'origin_address' => 'required',
-            'study_program_id' => 'nullable|integer|exists:study_programs,id',
-            'major_id' => 'nullable|integer|exists:majors,id',
-            'campus' => 'nullable|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
-            'photo_path' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-            'id_card_path' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'student_card_path' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-        ]);
+{
+    Log::info('Request ingin divalidasi');
 
-        Log::info('Request berhasil divalidasi');
+    $validated = $request->validate([
+        'username' => 'required|unique:users',
+        'password' => 'required|string|max:255',
+        'email' => 'required|email|unique:users',
+        'role_name' => 'nullable|in:student', // default nanti ditimpa
+        'nim' => 'required|max:20|string',
+        'name' => 'required|max:100|string',
+        'nik' => 'required',
+        'phone' => 'required',
+        'origin_address' => 'required',
+        'study_program_id' => 'nullable|integer|exists:study_programs,id',
+        'major_id' => 'nullable|integer|exists:majors,id',
+        'campus' => 'nullable|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
+        'photo_path' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+        'id_card_path' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        'student_card_path' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+    ]);
 
-        Log::info('Ingin di bcrypt');
-        // Tambahkan password default
-        $data['password'] = bcrypt('12345678');
+    Log::info('Request berhasil divalidasi');
 
-        // Cek apakah sudah pernah daftar dengan NIM yang sama
-        if (User::where('nim', $request->nim)->where('has_registered_free_toeic', true)->exists()) {
-            return back()->withErrors(['nim' => 'This NIM has already registered for Free TOEIC.'])->withInput();
-        }
-        Log::info('Berhasil mengecek apakah sudah pernah daftar dengan NIM yang sama atau belum');
+    // Password default di-enkripsi
+    $validated['password'] = bcrypt($request->password);
+    $validated['role_name'] = 'student';
+    $validated['status'] = 'pending';
+    $validated['has_registered_free_toeic'] = false;
 
-        // File upload
-        if ($request->hasFile('photo_path')) {
-            $data['photo_path'] = $request->file('photo_path')->store('photos', 'public');
-        }
-        if ($request->hasFile('id_card_path')) {
-            $data['id_card_path'] = $request->file('id_card_path')->store('id_cards', 'public');
-        }
-        if ($request->hasFile('student_card_path')) {
-            $data['student_card_path'] = $request->file('student_card_path')->store('student_cards', 'public');
-        }
-        Log::info('Berhasil unggah gambar');
-
-        $validated['password'] = bcrypt($request->password);
-        $validated['role_name'] = 'student';
-        $validated['status'] = $validated['status'] ?? 'pending';
-
-        User::create($validated);
-        Log::info('Berhasil membuat akun mahasiswa');
-
-        return redirect()->route('students.index')->with('success', 'Student created successfully.');
+    // Cek NIM duplikat untuk Free TOEIC
+    if (User::where('nim', $request->nim)->where('has_registered_free_toeic', true)->exists()) {
+        return back()->withErrors(['nim' => 'This NIM has already registered for Free TOEIC.'])->withInput();
     }
+
+    // Upload file (jika ada)
+    if ($request->hasFile('photo_path')) {
+        $validated['photo_path'] = $request->file('photo_path')->store('photos', 'public');
+    }
+
+    if ($request->hasFile('id_card_path')) {
+        $validated['id_card_path'] = $request->file('id_card_path')->store('id_cards', 'public');
+    }
+
+    if ($request->hasFile('student_card_path')) {
+        $validated['student_card_path'] = $request->file('student_card_path')->store('student_cards', 'public');
+    }
+
+    Log::info('Berhasil unggah gambar');
+
+    // Simpan ke database
+    User::create($validated);
+    Log::info('Berhasil membuat akun mahasiswa');
+
+    return redirect()->route('students.index')->with('success', 'Student created successfully.');
+}
 
     public function show($id)
     {
