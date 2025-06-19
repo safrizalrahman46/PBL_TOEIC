@@ -100,15 +100,15 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     // Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
     // Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
 
-   Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
+    Route::get('/paid-toeic/register', [PaidToeicController::class, 'create'])->name('paid-toeic.form');
     Route::post('/paid-toeic/register', [PaidToeicController::class, 'store'])->name('paid-toeic.register');
-        //  Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
+    //  Route::get('/toeic-scores', [ToeicScoreController::class, 'index'])->name('toeic-scores.index');
 
-             // TOEIC Scores - Student view only
+    // TOEIC Scores - Student view only
     // Route::get('/toeic-scores', [ToeicScoreController::class, 'studentScores'])->name('student.toeic-scores.index');
     Route::get('/toeic-scores', [ToeicScoreController::class, 'studentScores'])->name('student.toeic-scores.index');
 
-     Route::prefix('freeRegist')->name('freeRegist.')->group(function () {
+    Route::prefix('freeRegist')->name('freeRegist.')->group(function () {
         Route::get('/', [freeRegistController::class, 'index'])->name('index');
         Route::get('/create', [freeRegistController::class, 'create'])->name('create');
         Route::post('/', [freeRegistController::class, 'store'])->name('store');
@@ -145,7 +145,7 @@ Route::middleware(['auth', 'role:student'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:educational_staff'])->group(function () {
-     Route::prefix('educational-staff')->name('educational-staff.')->group(function () {
+    Route::prefix('educational-staff')->name('educational-staff.')->group(function () {
         Route::get('/', [EducationalStaffController::class, 'index'])->name('index');
         Route::get('/create', [EducationalStaffController::class, 'create'])->name('create');
         Route::post('/', [EducationalStaffController::class, 'store'])->name('store');
@@ -216,7 +216,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     //     Route::delete('/{id}', [ToeicScoreController::class, 'destroy'])->name('destroy');
     // });
 
-        Route::prefix('admin/toeic-scores')->name('admin.toeic-scores.')->group(function () {
+    Route::prefix('admin/toeic-scores')->name('admin.toeic-scores.')->group(function () {
         Route::get('/', [ToeicScoreController::class, 'index'])->name('index');
         Route::get('/create', [ToeicScoreController::class, 'create'])->name('create');
         Route::post('/', [ToeicScoreController::class, 'store'])->name('store');
@@ -224,6 +224,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::put('/{id}', [ToeicScoreController::class, 'update'])->name('update');
         Route::delete('/{id}', [ToeicScoreController::class, 'destroy'])->name('destroy');
     });
+    // Campus Management
+    Route::prefix('campuses')->name('campuses.')->group(function () {
+        Route::get('/', [App\Http\Controllers\CampusController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\CampusController::class, 'create'])->name('create');
+        Route::post('/store', [App\Http\Controllers\CampusController::class, 'store'])->name('store');
+        Route::get('/{id}', [App\Http\Controllers\CampusController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [App\Http\Controllers\CampusController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [App\Http\Controllers\CampusController::class, 'update'])->name('update');
+        Route::delete('/{id}', [App\Http\Controllers\CampusController::class, 'destroy'])->name('destroy');
+    });
+
 
     // Majors Management
     Route::prefix('majors')->name('majors.')->group(function () {

@@ -15,9 +15,9 @@
 
 <div class="d-flex flex-column p-3 bg-white shadow-sm" style="width: 240px; min-height: 100vh; padding-bottom: 100px;">
     <!-- Logo -->
-    {{--  <h5 class="text-primary fw-bold mb-4">UPA</h5>  --}}
-    <img src="https://upload.wikimedia.org/wikipedia/id/4/4a/Logo_Politeknik_Negeri_Malang.png"
-     alt="Logo Polinema" class="mb-4" style="width: 50px; height: 50px;">
+    {{-- <h5 class="text-primary fw-bold mb-4">UPA</h5> --}}
+    <img src="https://upload.wikimedia.org/wikipedia/id/4/4a/Logo_Politeknik_Negeri_Malang.png" alt="Logo Polinema"
+        class="mb-4" style="width: 50px; height: 50px;">
 
 
     <!-- General -->
@@ -46,7 +46,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/paid-toeic/register" class="nav-link text-dark {{ request()->is('paid-toeic*') ? 'active' : '' }}">
+                    <a href="/paid-toeic/register"
+                        class="nav-link text-dark {{ request()->is('paid-toeic*') ? 'active' : '' }}">
                         <i class="bi bi-pencil-square me-2"></i> Paid Student Register
                     </a>
                 </li>
@@ -64,17 +65,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('adminRegist.index') }}" class="nav-link text-dark {{ request()->is('adminRegist*') ? 'active' : '' }}">
+                    <a href="{{ route('adminRegist.index') }}"
+                        class="nav-link text-dark {{ request()->is('adminRegist*') ? 'active' : '' }}">
                         <i class="bi bi-pencil-square me-2"></i> Registrations Validation
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/toeic-registration/index" class="nav-link text-dark {{ request()->is('toeic-registration*') ? 'active' : '' }}">
+                    <a href="/toeic-registration/index"
+                        class="nav-link text-dark {{ request()->is('toeic-registration*') ? 'active' : '' }}">
                         <i class="bi bi-pencil-square me-2"></i> Paid Student Registrations
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('toeic-scores.index') }}" class="nav-link text-dark {{ request()->is('toeic-scores*') ? 'active' : '' }}">
+                    <a href="{{ route('toeic-scores.index') }}"
+                        class="nav-link text-dark {{ request()->is('toeic-scores*') ? 'active' : '' }}">
                         <i class="bi bi-clipboard-data me-2"></i> Scores
                     </a>
                 </li>
@@ -82,12 +86,13 @@
         </ul>
     @endif
 
-    @if(auth()->user()->role_name === 'educational_staff' )
+    @if(auth()->user()->role_name === 'educational_staff')
         <!-- Educational Staff Section -->
         <small class="text-uppercase text-muted fw-bold mb-2 mt-3">Educational Staff</small>
         <ul class="nav nav-pills flex-column mb-3">
             <li class="nav-item">
-                <a href="/educational-staff" class="nav-link text-dark {{ request()->is('educational-staff') ? 'active' : '' }}">
+                <a href="/educational-staff"
+                    class="nav-link text-dark {{ request()->is('educational-staff') ? 'active' : '' }}">
                     <i class="bi bi-pencil-square me-2"></i> Educational Staff Registrations
                 </a>
             </li>
@@ -108,6 +113,11 @@
                     <i class="bi bi-journal-code me-2"></i> Study Programs
                 </a>
             </li>
+            <li class="nav-item">
+            <a href="{{ route('campuses.index') }}" class="nav-link text-dark {{ request()->is('campuses*') ? 'active' : '' }}">
+                <i class="bi bi-building me-2"></i> Campuses
+            </a>
+        </li>
         </ul>
     @endif
 
